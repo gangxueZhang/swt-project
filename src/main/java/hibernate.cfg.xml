@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
                                          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
- <session-factory name="">
+ <session-factory>
   <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
   <property name="hibernate.connection.password">swtpassword</property>
   <property name="hibernate.connection.url">jdbc:mysql://localhost/swtdb</property>
@@ -11,5 +11,7 @@
   <property name="hibernate.format_sql">true</property>
   <property name="hibernate.hbm2ddl.auto">update</property>
   <mapping class="vu.fs.cs.swt.beans.Customer"/>
+  <mapping class="vu.fs.cs.swt.beans.Loan"/>
+  <mapping class="vu.fs.cs.swt.beans.Saving"/>
  </session-factory>
 </hibernate-configuration>

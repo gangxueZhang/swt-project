@@ -78,6 +78,7 @@ public final class System {
 			openSession();
 			List<Customer> customers=s.createCriteria(Customer.class).list();
 			t.commit();
+			closeSession();
 			return customers;
 		}
 	}

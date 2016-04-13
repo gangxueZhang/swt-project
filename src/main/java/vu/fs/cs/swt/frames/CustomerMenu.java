@@ -2,6 +2,8 @@ package vu.fs.cs.swt.frames;
 
 import javax.swing.*;
 
+import vu.fs.cs.swt.beans.*;
+
 import java.awt.EventQueue;
 import java.awt.Point;
 import java.awt.Dimension;
@@ -14,6 +16,7 @@ import java.awt.event.ActionEvent;
 public class CustomerMenu {
 
 	private JFrame frame;
+	private static Customer _c;
 
 	/**
 	 * Launch the application.
@@ -36,6 +39,11 @@ public class CustomerMenu {
 	 */
 	public CustomerMenu() {
 		initialize();
+	}
+	
+	public CustomerMenu(Customer c) {
+		initialize();
+		_c = c;
 	}
 
 	/**
