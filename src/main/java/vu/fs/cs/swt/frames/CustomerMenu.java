@@ -4,16 +4,12 @@ import javax.swing.*;
 
 import vu.fs.cs.swt.beans.*;
 
-import java.awt.EventQueue;
-import java.awt.Point;
-import java.awt.Dimension;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.ActionListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.border.EtchedBorder;
+
 import java.util.List;
 
 public class CustomerMenu {
@@ -28,7 +24,13 @@ public class CustomerMenu {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CustomerMenu window = new CustomerMenu();
+					CustomerMenu window;
+					if(_c != null) {
+						window = new CustomerMenu(_c);
+					}
+					else {
+						window = new CustomerMenu();
+					}
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,7 +56,7 @@ public class CustomerMenu {
 	 */
 	private void initialize() {
 		//setting up the windows
-		final JFrame frame = new JFrame("HelloWorld GUI");
+		frame = new JFrame();
 		frame.setLocation(new Point(100, 100));
 		frame.setMinimumSize(new Dimension(700, 500));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -262,7 +264,7 @@ public class CustomerMenu {
 		btnInitLoan.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnInitLoan.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(_c != null) {
+				if(_c != null) {		
 					frame.dispose();
 					InitiateLoan il = new InitiateLoan(_c);
 					il.main(null);
@@ -302,10 +304,6 @@ public class CustomerMenu {
 				lblCurrentMonth.setText("MAY 2016");
 			}
 		});
-		
-		//finally, displaying the window
-		frame.pack();
-		frame.setVisible(true);
 	}
 
 }

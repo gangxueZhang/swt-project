@@ -30,6 +30,12 @@ public class InitiateLoan {
 			public void run() {
 				try {
 					InitiateLoan window = new InitiateLoan();
+					if(_c != null) {
+						window = new InitiateLoan(_c);
+					}
+					else {
+						window = new InitiateLoan();
+					}
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -130,8 +136,10 @@ public class InitiateLoan {
 					Loan l;
 					try {
 						l = new Loan(balance, interest_rate, _c);
+						Double saving_balance = _c.getSavingsAccount().getBalance();
 						_c.addLoan(l);
 						_c.getSavingsAccount().setInterestRate();
+						_c.getSavingsAccount().setBalance(saving_balance + balance);
 						System.Loans.add(l);
 						System.Customers.update(_c);
 						JOptionPane.showMessageDialog(frame, "You have successfully applied for a loan!");
