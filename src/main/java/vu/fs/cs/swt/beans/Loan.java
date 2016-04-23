@@ -26,19 +26,24 @@ public class Loan implements Serializable {
 	Double _minimumPayment;
 	@Column(name = "is_delinquent", nullable=false)
 	Boolean _isDelinquent;	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "customer")
 	Customer _customer;
 	
 	public Loan() {	}
 	
-	public Loan(Double balance, Double interestRate, Double minimumPayment,
-			Customer customer) throws Exception{
+	public Loan(Double balance, Double interestRate, Customer customer) throws Exception{
 		this.setBalance(balance);
 		this.setInterestRate(interestRate);
-		this.setMinimumPayment(minimumPayment);
 		this.setIsDelinquent(false);
 		this.setCustomer(customer);
+		
+		if((this.getInterestRate() + 0.01*this.getBalance()) > 10.0) {
+			this._minimumPayment = this.getInterestRate() + 0.01*this.getBalance();
+		}
+		else {
+			this._minimumPayment = 10.0;
+		}
 	}
 	
 	public long getId() {
@@ -50,20 +55,34 @@ public class Loan implements Serializable {
 	public Double getBalance() {
 		return _balance;
 	}
-	public void setBalance(Double _balance) {
+	public void setBalance(Double _balance) throws Exception {
+		if(_balance < 500 || _balance > 50000) {
+			throw new Exception("Loan must be between 500 and 50000");
+		}
 		this._balance = _balance;
 	}
 	public Double getInterestRate() {
 		return _interestRate;
 	}
-	public void setInterestRate(Double _interestRate) {
+	public void setInterestRate(Double _interestRate) throws Exception {
+		if(_interestRate < 6 || _interestRate > 18) {
+			throw new Exception("Interest rate must be between 6% and 18%");
+		}
+		if((_interestRate % 0.25) != 0) {
+			throw new Exception("Interest rate must be increment of .25%");
+		}
 		this._interestRate = _interestRate;
 	}
-	public Double get_minimumPayment() {
+	public Double getMinimumPayment() {
 		return _minimumPayment;
 	}
-	public void setMinimumPayment(Double _minimumPayment) {
-		this._minimumPayment = _minimumPayment;
+	public void setMinimumPayment() {
+		if((this.getInterestRate() + 0.01*this.getBalance()) > 10.0) {
+			this._minimumPayment = this.getInterestRate() + 0.01*this.getBalance();
+		}
+		else {
+			this._minimumPayment = 10.0;
+		}
 	}
 	public Boolean getIsDelinquent() {
 		return _isDelinquent;

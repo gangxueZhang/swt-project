@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.regex.Pattern;
 
 import javax.persistence.*;
+import javax.swing.JOptionPane;
+
+import java.util.List;
 
 @Entity
 public class Saving implements Serializable {
@@ -17,7 +20,7 @@ public class Saving implements Serializable {
 	@Column(name = "interest_rate", nullable=false)
 	Double _interestRate;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "customer")
 	Customer _customer;
 	
@@ -25,13 +28,13 @@ public class Saving implements Serializable {
 	
 	public Saving(Customer customer) {
 		this.setBalance(0.0);
-		this.setInterestRate(0.0);
+		_interestRate = 0.0;
 		this.setCustomer(customer);
 	}
 	
-	public Saving(Double balance, Double interestRate, Customer customer) throws Exception{
+	public Saving(Double balance, Customer customer) throws Exception{
 		this.setBalance(balance);
-		this.setInterestRate(interestRate);
+		this.setInterestRate();
 		this.setCustomer(customer);
 	}
 	
@@ -50,8 +53,16 @@ public class Saving implements Serializable {
 	public Double getInterestRate() {
 		return _interestRate;
 	}
-	public void setInterestRate(Double _interestRate) {
-		this._interestRate = _interestRate;
+	public void setInterestRate() throws Exception {
+		List<Loan> loans = this.getCustomer().getLoans();
+		Double loan_interest = 6.0;
+		if(!loans.isEmpty()) {
+			for(Loan l : loans) {
+				loan_interest = l.getInterestRate();
+				break;
+			}
+		}
+		this._interestRate = loan_interest/4;
 	}
 	public Customer getCustomer() {
 		return _customer;

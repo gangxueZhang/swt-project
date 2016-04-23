@@ -38,9 +38,9 @@ public class Customer implements Serializable {
 	@Column(name = "withdraw_savings", nullable=false)
 	private Boolean _withdrawSavings;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "_customer")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "_customer", fetch = FetchType.EAGER)
 	private List<Loan> _loans;
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "_customer")
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "_customer", fetch = FetchType.EAGER)
 	private Saving _savingsAccount;
 	
 	public Customer() {}
@@ -170,7 +170,16 @@ public class Customer implements Serializable {
 	}
 	
 	
+	
+	
+	
 	public boolean correctPassword(String pass){
 		return this._password.equals(pass);
+	}
+	public void addLoan(Loan loan) throws Exception {
+		if(this._loans.size() >= 3) {
+			throw new Exception("This customer already has three loans.");
+		}
+		this._loans.add(loan);
 	}
 }

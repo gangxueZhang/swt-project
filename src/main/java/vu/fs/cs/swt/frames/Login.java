@@ -84,12 +84,10 @@ public class Login {
 						frame.dispose();
 						CustomerMenu cm = new CustomerMenu(c);
 						cm.main(null);
-						break;
-					}
-					else {
-						JOptionPane.showMessageDialog(frame, "Incorrect input");
+						return;
 					}
 				}
+				JOptionPane.showMessageDialog(frame, "Incorrect input");
 			}
 		});
 		btnOk.setBounds(87, 168, 120, 23);
