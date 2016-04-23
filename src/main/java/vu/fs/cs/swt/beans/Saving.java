@@ -3,9 +3,7 @@ package vu.fs.cs.swt.beans;
 import java.io.Serializable;
 import java.util.regex.Pattern;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Saving implements Serializable {
@@ -14,13 +12,27 @@ public class Saving implements Serializable {
 	@Id
 	@GeneratedValue
 	private long _id;
+	@Column(name = "balance", nullable=false)
 	Double _balance;
+	@Column(name = "interest_rate", nullable=false)
 	Double _interestRate;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "customer")
+	Customer _customer;
+	
 	public Saving() {}
 	
-	public Saving(Double balance, Double interestRate) throws Exception{
+	public Saving(Customer customer) {
+		this.setBalance(0.0);
+		this.setInterestRate(0.0);
+		this.setCustomer(customer);
+	}
+	
+	public Saving(Double balance, Double interestRate, Customer customer) throws Exception{
 		this.setBalance(balance);
 		this.setInterestRate(interestRate);
+		this.setCustomer(customer);
 	}
 	
 	public long getId() {
@@ -40,5 +52,11 @@ public class Saving implements Serializable {
 	}
 	public void setInterestRate(Double _interestRate) {
 		this._interestRate = _interestRate;
+	}
+	public Customer getCustomer() {
+		return _customer;
+	}
+	public void setCustomer(Customer _customer) {
+		this._customer = _customer;
 	}
 }

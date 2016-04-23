@@ -4,52 +4,62 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.UUID;
 
-import javax.persistence.CascadeType;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class Customer implements Serializable {
 	private static final long serialVersionUID = -2723446500566528020L;
 	
 	@Id
-	@GeneratedValue	
+	@GeneratedValue
 	private long _id;
-	private String _firstName, _lastName, _username, _password, _accountNumber;
+	@Column(name = "first_name", nullable=false, length=30)
+	private String _firstName;
+	@Column(name = "last_name", nullable=false, length=30)
+	private String _lastName;
+	@Column(name = "username", nullable=false, length=25, unique=true)
+	private String _username;
+	@Column(name = "password", nullable=false, length=25)
+	private String _password;
+	@Column(name = "account_number", nullable=false, unique=true)
+	private String _accountNumber;
+	@Column(name = "beginning_balance", nullable=false)
 	private Double _beginningBalance;
+	@Column(name = "end_balance", nullable=false)
 	private Double _endBalance;
-	private Saving _savingsAccount;
-	private Boolean _initiateLoan, _paymentLoan, _depositSavings, _withdrawSavings;
+	@Column(name = "initiate_loan", nullable=false)
+	private Boolean _initiateLoan;
+	@Column(name = "payment_loan", nullable=false)
+	private Boolean _paymentLoan;
+	@Column(name = "deposit_savings", nullable=false)
+	private Boolean _depositSavings;
+	@Column(name = "withdraw_savings", nullable=false)
+	private Boolean _withdrawSavings;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "_customer")
 	private List<Loan> _loans;
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "_customer")
+	private Saving _savingsAccount;
 	
 	public Customer() {}
 	
 	public Customer(String firstName, String lastName, String username,
-			String password, String accountNumber, Saving savingsAccount) throws Exception{
+			String password) throws Exception {
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
 		this.setUsername(username);
 		this.setPassword(password);
-		this.setAccountNumber(accountNumber);
+		this.setAccountNumber(UUID.randomUUID().toString());
 		this.setBeginningBalance(0.0);
 		this.setEndBalance(0.0);
-		this.setSavingsAccount(savingsAccount);
+		_savingsAccount = new Saving(this);
 		this._loans = new ArrayList<Loan>();
 		this.setInitiateLoan(false);
 		this.setPaymentLoan(false);
 		this.setDepositSavings(false);
 		this.setWithdrawSavings(false);
-	}
-	
-	public Customer(String username, String password)  throws Exception{
-		this.setUsername(username);
-		this.setPassword(password);
 	}
 	
 	public long getId() {

@@ -13,7 +13,7 @@ public class App
 		java.lang.System.out.println("SWT PROject");
 		Customer c;
 		try {
-			c = new Customer("testuser", "testpass");
+			c = new Customer("John", "Doe", "testuser", "testpass");
 			System.Customers.add(c);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

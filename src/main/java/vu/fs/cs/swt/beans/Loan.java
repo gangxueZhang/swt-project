@@ -3,6 +3,7 @@ package vu.fs.cs.swt.beans;
 import java.io.Serializable;
 import java.util.regex.Pattern;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,21 +18,27 @@ public class Loan implements Serializable {
 	@Id
 	@GeneratedValue
 	private long _id;
+	@Column(name = "balance", nullable=false)
 	Double _balance;
+	@Column(name = "interest_rate", nullable=false)
 	Double _interestRate;
+	@Column(name = "minimum_payment", nullable=false)
 	Double _minimumPayment;
-	Boolean _isDelinquent;
-	
+	@Column(name = "is_delinquent", nullable=false)
+	Boolean _isDelinquent;	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer")
 	Customer _customer;
-	public Loan() {}
 	
-	public Loan(Double balance, Double interestRate, Double minimumPayment) throws Exception{
+	public Loan() {	}
+	
+	public Loan(Double balance, Double interestRate, Double minimumPayment,
+			Customer customer) throws Exception{
 		this.setBalance(balance);
 		this.setInterestRate(interestRate);
 		this.setMinimumPayment(minimumPayment);
 		this.setIsDelinquent(false);
+		this.setCustomer(customer);
 	}
 	
 	public long getId() {
@@ -63,5 +70,11 @@ public class Loan implements Serializable {
 	}
 	public void setIsDelinquent(Boolean _isDelinquent) {
 		this._isDelinquent = _isDelinquent;
+	}
+	public Customer getCustomer() {
+		return _customer;
+	}
+	public void setCustomer(Customer _customer) {
+		this._customer = _customer;
 	}
 }
