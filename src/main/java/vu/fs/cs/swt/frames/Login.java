@@ -56,25 +56,25 @@ public class Login {
 		_customers = System.Customers.list();
 		
 		JLabel lblUsername = new JLabel("Username:");
-		lblUsername.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblUsername.setBounds(37, 76, 134, 35);
+		lblUsername.setHorizontalAlignment(SwingConstants.LEFT);
+		lblUsername.setBounds(87, 71, 74, 35);
 		frame.getContentPane().add(lblUsername);
 		
 		txtUsername = new JTextField();
-		txtUsername.setBounds(181, 83, 120, 20);
+		txtUsername.setBounds(171, 78, 175, 20);
 		frame.getContentPane().add(txtUsername);
 		txtUsername.setColumns(10);
 		
-		JLabel lblPassword = new JLabel("Šifra:");
-		lblPassword.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPassword.setBounds(60, 112, 111, 50);
+		JLabel lblPassword = new JLabel("Password:");
+		lblPassword.setHorizontalAlignment(SwingConstants.LEFT);
+		lblPassword.setBounds(87, 107, 74, 50);
 		frame.getContentPane().add(lblPassword);
 		
 		passPassword = new JPasswordField();
-		passPassword.setBounds(181, 127, 120, 20);
+		passPassword.setBounds(171, 122, 175, 20);
 		frame.getContentPane().add(passPassword);
 		
-		final JButton btnOk = new JButton("OK");
+		final JButton btnOk = new JButton("Login");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				char[] pass = passPassword.getPassword();
@@ -92,10 +92,21 @@ public class Login {
 				}
 			}
 		});
-		btnOk.setBounds(181, 187, 120, 23);
+		btnOk.setBounds(87, 168, 120, 23);
 		frame.getContentPane().add(btnOk);
 		
 		btnOk.setEnabled(false);
+		
+		JButton btnRegister = new JButton("Register");
+		btnRegister.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+				Register r = new Register();
+				r.main(null);
+			}
+		});
+		btnRegister.setBounds(226, 168, 120, 23);
+		frame.getContentPane().add(btnRegister);
 		
 		txtUsername.getDocument().addDocumentListener(new DocumentListener() {
 
@@ -179,5 +190,4 @@ public class Login {
 			 }
 		});
 	}
-
 }

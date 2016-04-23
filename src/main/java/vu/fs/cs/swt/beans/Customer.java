@@ -51,7 +51,7 @@ public class Customer implements Serializable {
 		this.setLastName(lastName);
 		this.setUsername(username);
 		this.setPassword(password);
-		this.setAccountNumber(UUID.randomUUID().toString());
+		_accountNumber = UUID.randomUUID().toString();
 		this.setBeginningBalance(0.0);
 		this.setEndBalance(0.0);
 		_savingsAccount = new Saving(this);
@@ -72,9 +72,9 @@ public class Customer implements Serializable {
 		return _firstName;
 	}
 	public void setFirstName(String firstName) throws Exception{
-		Pattern pattern = Pattern.compile("[a-zA-Z]{2,}");
+		Pattern pattern = Pattern.compile("[a-zA-Z]{2,30}");
 	    if (!pattern.matcher(firstName).matches()) {
-	        throw new Exception("First name should contain only letters (minimum length is 2)");
+	        throw new Exception("First name should contain only letters (min 2, max 30)");
 	    }
 		this._firstName = firstName;
 	}
@@ -82,9 +82,9 @@ public class Customer implements Serializable {
 		return _lastName;
 	}
 	public void setLastName(String lastName) throws Exception{
-		Pattern pattern = Pattern.compile("[a-zA-Z]{2,}");
+		Pattern pattern = Pattern.compile("[a-zA-Z]{2,30}");
 	    if (!pattern.matcher(lastName).matches()) {
-	        throw new Exception("Last name should contain only letters (minimum length is 2)");
+	        throw new Exception("Last name should contain only letters (min 2, max 30");
 	    }
 		this._lastName = lastName;
 	}
@@ -92,9 +92,9 @@ public class Customer implements Serializable {
 		return _username;
 	}
 	public void setUsername(String username) throws Exception{
-		Pattern pattern = Pattern.compile("[a-zA-Z0-9]{6,}");
+		Pattern pattern = Pattern.compile("[a-zA-Z0-9]{5,25}");
 	    if (!pattern.matcher(username).matches()) {
-	        throw new Exception("Username should contain only alphanumeric characters (minimum length is 5)");
+	        throw new Exception("Username should contain only alphanumeric characters (min 5, max 25)");
 	    }
 		this._username = username;
 	}
@@ -102,17 +102,14 @@ public class Customer implements Serializable {
 		return _password;
 	}
 	public void setPassword(String password) throws Exception{
-		Pattern pattern = Pattern.compile("[a-zA-Z0-9]{6,}");
+		Pattern pattern = Pattern.compile("[a-zA-Z0-9]{6,25}");
 	    if (!pattern.matcher(password).matches()) {
-	        throw new Exception("Password should contain only alphanumeric characters (minimum length is 6)");
+	        throw new Exception("Password should contain only alphanumeric characters (min 6, max 25)");
 	    }
 		this._password = password;
 	}
 	public String getAccountNumber() {
 		return _accountNumber;
-	}
-	public void setAccountNumber(String accountNumber) {
-		this._accountNumber = accountNumber;
 	}
 	public Double getBeginningBalance() {
 		return _beginningBalance;
@@ -129,14 +126,17 @@ public class Customer implements Serializable {
 	public Saving getSavingsAccount() {
 		return _savingsAccount;
 	}
-	public void setSavingsAccount(Saving _savingsAccount) {
-		this._savingsAccount = _savingsAccount;
-	}
 	public List<Loan> getLoans() {
 		return _loans;
 	}
 	public void setLoans(List<Loan> _loans) throws Exception{
-		if(_loans.size() > 3) {
+		if(this._loans.size() == 0 && _loans.size() > 3) {
+			throw new Exception("A customer can have up to three loans.");
+		}
+		if(this._loans.size() == 1 && _loans.size() > 2) {
+			throw new Exception("A customer can have up to three loans.");
+		}
+		if(this._loans.size() == 2 && _loans.size() > 1) {
 			throw new Exception("A customer can have up to three loans.");
 		}
 		if(this._loans.size() >= 3) {
