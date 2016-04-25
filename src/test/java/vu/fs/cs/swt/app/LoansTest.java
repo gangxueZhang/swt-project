@@ -194,44 +194,59 @@ public class LoansTest {
 		}
 		
 	}
+
+	
 	@Test
 	public void testLoan() {
-		fail("Not yet implemented");
+		try {
+			Loan l = new Loan(600.00, 10.25, new Customer());
+			
+			assertEquals(l.getBalance(), 600.00, 0.0);
+			assertEquals(l.getInterestRate(), 10.25, 0.0);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	@Test
-	public void testLoanDoubleDoubleCustomer() {
-		fail("Not yet implemented");
+	public void testId() {
+		Loan l = new Loan();
+		
+		l.setId(1578984651);
+		
+		assertEquals(l.getId(), 1578984651);
 	}
 
-	@Test
-	public void testGetId() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetId() {
-		fail("Not yet implemented");
-	}
 
 	@Test
 	public void testGetBalance() {
-		fail("Not yet implemented");
+		Loan l = new Loan();
+		
+		try {
+			l.setBalance(600.00);
+			assertEquals(l.getBalance(), 600.00, 0.0);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testSetBalance() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetInterestRate() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetInterestRate() {
-		fail("Not yet implemented");
+		Loan l = new Loan();
+		
+		try {
+			l.setBalance(600.00);
+			
+			assertNotNull(l.getBalance());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
@@ -256,12 +271,39 @@ public class LoansTest {
 
 	@Test
 	public void testGetCustomer() {
-		fail("Not yet implemented");
+		try {
+			Customer customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			String accountNumber = customer.getAccountNumber();
+			
+			Loan l = new Loan();
+			l.setCustomer(customer);
+			
+			assertEquals(l.getCustomer().getAccountNumber(), accountNumber);
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	@Test
 	public void testSetCustomer() {
-		fail("Not yet implemented");
+		
+		try {
+			Customer customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			Loan l = new Loan();
+			l.setCustomer(customer);
+			
+			assertNotNull(l.getCustomer());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }
