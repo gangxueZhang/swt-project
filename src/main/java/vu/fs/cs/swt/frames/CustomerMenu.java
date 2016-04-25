@@ -7,15 +7,18 @@ import vu.fs.cs.swt.beans.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 
 import javax.swing.border.EtchedBorder;
 
+import java.util.*;
 import java.util.List;
 
 public class CustomerMenu {
 
 	private JFrame frame;
 	private static Customer _c;
+	AdvanceMonths months;
 
 	/**
 	 * Launch the application.
@@ -49,6 +52,7 @@ public class CustomerMenu {
 	public CustomerMenu(Customer c) {
 		initialize();
 		_c = c;
+		months = new AdvanceMonths(_c) ;
 	}
 
 	/**
@@ -106,7 +110,7 @@ public class CustomerMenu {
 		lblBasicInformation.setBounds(10, 10, 144, 17);
 		customerInformation.add(lblBasicInformation);
 		
-		final JLabel lblCurrentMonth = new JLabel("APRIL 2016");
+		final JLabel lblCurrentMonth = new JLabel("MONTH");
 		lblCurrentMonth.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		lblCurrentMonth.setHorizontalAlignment(SwingConstants.CENTER);
@@ -288,6 +292,8 @@ public class CustomerMenu {
 		JButton btnDepositToSavings = new JButton("<html><p style='text-align: center;'>Deposit to <br/> Savings</p></html>");
 		btnDepositToSavings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				DepositSavings deposit = new DepositSavings(_c);
+				
 			}
 		});
 		
@@ -301,7 +307,8 @@ public class CustomerMenu {
 		btnAdvanceToNext.setBackground(new Color(237, 62, 103));
 		btnAdvanceToNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				lblCurrentMonth.setText("MAY 2016");
+				String next = months.advance();
+				lblCurrentMonth.setText(next);
 			}
 		});
 	}
