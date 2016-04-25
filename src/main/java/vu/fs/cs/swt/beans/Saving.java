@@ -54,14 +54,19 @@ public class Saving implements Serializable {
 		return _interestRate;
 	}
 	public void setInterestRate() throws Exception {
-		List<Loan> loans = this.getCustomer().getLoans();
 		Double loan_interest = 6.0;
-		if(!loans.isEmpty()) {
-			for(Loan l : loans) {
-				loan_interest = l.getInterestRate();
-				break;
+		
+		if (this.getCustomer() != null){
+			List<Loan> loans = this.getCustomer().getLoans();
+			
+			if(!loans.isEmpty()) {
+				for(Loan l : loans) {
+					loan_interest = l.getInterestRate();
+					break;
+				}
 			}
 		}
+		
 		this._interestRate = loan_interest/4;
 	}
 	public Customer getCustomer() {

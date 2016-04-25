@@ -169,10 +169,6 @@ public class Customer implements Serializable {
 		this._withdrawSavings = _withdrawSavings;
 	}
 	
-	
-	
-	
-	
 	public boolean correctPassword(String pass){
 		return this._password.equals(pass);
 	}
