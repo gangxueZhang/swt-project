@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import vu.fs.cs.swt.beans.Customer;
 import vu.fs.cs.swt.beans.Loan;
+import vu.fs.cs.swt.beans.Saving;
 
 public class SavingsTest {
 
@@ -43,8 +44,6 @@ public class SavingsTest {
 			Customer c = new Customer("John", "Doe", "johnny", "awesomePassword");
 			c.getSavingsAccount().setInterestRate();
 			
-			System.out.println(c.getSavingsAccount().getInterestRate());
-			
 			assertEquals(c.getSavingsAccount().getInterestRate(), 1.5, 0.0);
 			
 		} catch (Exception e) {
@@ -55,60 +54,113 @@ public class SavingsTest {
 		
 		
 	}
-	
-	@Test
-	public void testSaving() {
-		fail("Not yet implemented");
-	}
+
 
 	@Test
 	public void testSavingCustomer() {
-		fail("Not yet implemented");
+		try {
+			Customer c = new Customer("John", "Doe", "johnny", "awesomePassword");
+			Saving s = new Saving(c);
+			
+			assertEquals(s.getCustomer().getAccountNumber(), c.getAccountNumber());
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testSavingDoubleCustomer() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetId() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetId() {
-		fail("Not yet implemented");
+		try {
+			Customer customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			Saving s = new Saving(30.00, customer);
+			assertEquals(s.getBalance(), 30.0, 0.0);
+			assertEquals(s.getCustomer().getAccountNumber(), customer.getAccountNumber());
+		} catch (Exception e) { 
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testGetBalance() {
-		fail("Not yet implemented");
+		
+		Saving s = new Saving();
+		s.setBalance(30.00);
+		assertNotNull(s.getBalance());
+		
 	}
 
 	@Test
 	public void testSetBalance() {
-		fail("Not yet implemented");
+		Saving s = new Saving();
+		s.setBalance(30.00);
+		assertEquals(s.getBalance(), 30.00, 0.0);
 	}
 
 	@Test
 	public void testGetInterestRate() {
-		fail("Not yet implemented");
+		try {
+			Customer customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			Saving s = new Saving(customer);
+			assertEquals(s.getInterestRate(), 0.0, 0.0);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	@Test
 	public void testSetInterestRate() {
-		fail("Not yet implemented");
+		try {
+			Customer customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			Saving s = new Saving(customer);
+			s.setInterestRate();
+			assertEquals(s.getInterestRate(), 1.5, 0.0);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testGetCustomer() {
-		fail("Not yet implemented");
+		try {
+			Customer customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			String accountNumber = customer.getAccountNumber();
+			
+			Saving s = new Saving();
+			s.setCustomer(customer);
+			
+			assertEquals(s.getCustomer().getAccountNumber(), accountNumber);
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	@Test
 	public void testSetCustomer() {
-		fail("Not yet implemented");
+		
+		try {
+			Customer customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			Saving s = new Saving();
+			s.setCustomer(customer);
+			
+			assertNotNull(s.getCustomer());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }
