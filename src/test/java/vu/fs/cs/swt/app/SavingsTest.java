@@ -95,6 +95,7 @@ public class SavingsTest {
 	@Test
 	public void testSetBalance() {
 		Saving s = new Saving();
+		assertNull(s.getBalance());
 		s.setBalance(30.00);
 		assertEquals(s.getBalance(), 30.00, 0.0);
 	}
@@ -118,6 +119,7 @@ public class SavingsTest {
 		try {
 			Customer customer = new Customer("John", "Doe", "johnny", "awesomePassword");
 			Saving s = new Saving(customer);
+			assertEquals(s.getInterestRate(), 0.0, 0.0);
 			s.setInterestRate();
 			assertEquals(s.getInterestRate(), 1.5, 0.0);
 		} catch (Exception e) {
@@ -153,6 +155,9 @@ public class SavingsTest {
 			Customer customer = new Customer("John", "Doe", "johnny", "awesomePassword");
 			
 			Saving s = new Saving();
+			
+			assertNull(s.getCustomer());
+			
 			s.setCustomer(customer);
 			
 			assertNotNull(s.getCustomer());
