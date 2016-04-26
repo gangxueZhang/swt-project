@@ -150,11 +150,69 @@ public class LoansTest {
 	}
 	
 	@Test
+	public void testLoanBelow2(){
+		
+		Loan l = new Loan();
+		
+		try {
+			l.setBalance(499.00);
+			
+			Assert.fail();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			
+		}
+		
+	}
+	
+	@Test
+	public void testLoanBelow3(){
+		
+		Loan l = new Loan();
+		
+		try {
+			l.setBalance(499.99);
+			
+			Assert.fail();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			
+		}
+		
+	}
+	
+	@Test
 	public void testLoanAbove(){
 		Loan l = new Loan();
 		
 		try {
 			l.setBalance(60000.00);
+			
+			Assert.fail();
+		} catch (Exception e) {
+
+		}
+	}
+	
+	@Test
+	public void testLoanAbove2(){
+		Loan l = new Loan();
+		
+		try {
+			l.setBalance(50001.00);
+			
+			Assert.fail();
+		} catch (Exception e) {
+
+		}
+	}
+	
+	@Test
+	public void testLoanAbove3(){
+		Loan l = new Loan();
+		
+		try {
+			l.setBalance(50000.01);
 			
 			Assert.fail();
 		} catch (Exception e) {
@@ -186,6 +244,9 @@ public class LoansTest {
 			l.setBalance(500.00);
 			
 			Customer c = new Customer();
+			
+			assertTrue(c.getLoans().size() == 0);
+			
 			c.addLoan(l);
 			
 			assertTrue(c.getLoans().size() == 1);
@@ -216,6 +277,8 @@ public class LoansTest {
 	public void testId() {
 		Loan l = new Loan();
 		
+		assertEquals(l.getId(), 0);
+		
 		l.setId(1578984651);
 		
 		assertEquals(l.getId(), 1578984651);
@@ -240,6 +303,9 @@ public class LoansTest {
 		Loan l = new Loan();
 		
 		try {
+			
+			assertNull(l.getBalance());
+			
 			l.setBalance(600.00);
 			
 			assertNotNull(l.getBalance());
@@ -296,6 +362,9 @@ public class LoansTest {
 			Customer customer = new Customer("John", "Doe", "johnny", "awesomePassword");
 			
 			Loan l = new Loan();
+			
+			assertNull(l.getCustomer());
+			
 			l.setCustomer(customer);
 			
 			assertNotNull(l.getCustomer());

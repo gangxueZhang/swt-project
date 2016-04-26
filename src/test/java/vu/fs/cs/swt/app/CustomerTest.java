@@ -2,6 +2,8 @@ package vu.fs.cs.swt.app;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -77,8 +79,6 @@ public class CustomerTest {
 			Assert.fail("customer can only have 3 loans");
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		
 	}
@@ -102,150 +102,396 @@ public class CustomerTest {
 		}
 		
 	}
-	
-	@Test
-	public void testGetCustomer() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetId() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetId() {
-		fail("Not yet implemented");
-	}
 
 	@Test
 	public void testGetFirstName() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.getFirstName(), "John");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	@Test
 	public void testSetFirstName() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.getFirstName(), "John");
+			
+			customer.setFirstName("Stan");
+			
+			assertEquals(customer.getFirstName(), "Stan");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testGetLastName() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.getLastName(), "Doe");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testSetLastName() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.getLastName(), "Doe");
+			
+			customer.setLastName("Smith");
+			
+			assertEquals(customer.getLastName(), "Smith");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testGetUsername() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.getUsername(), "johnny");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testSetUsername() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.getUsername(), "johnny");
+			
+			customer.setUsername("iamjohn");
+			
+			assertEquals(customer.getUsername(), "iamjohn");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testGetPassword() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertNotNull(customer.getPassword());
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testSetPassword() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.getPassword(), "awesomePassword");
+			
+			customer.setPassword("notsoawesome");
+			
+			assertEquals(customer.getPassword(), "notsoawesome");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testGetAccountNumber() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertNotNull(customer.getAccountNumber());
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testGetBeginningBalance() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.getBeginningBalance(), 0.0, 0.0);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testSetBeginningBalance() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.getBeginningBalance(), 0.00, 0.0);
+			
+			customer.setBeginningBalance(30.00);
+			
+			assertEquals(customer.getBeginningBalance(), 30.00, 0.0);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testGetEndBalance() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertNotNull(customer.getEndBalance());
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testSetEndBalance() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.getEndBalance(), 0.0, 0.0);
+			
+			customer.setEndBalance(100.0);
+			
+			assertEquals(customer.getEndBalance(), 100.0, 0.0);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testGetSavingsAccount() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertNotNull(customer.getSavingsAccount());
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testGetLoans() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertNotNull(customer.getLoans());
+			assertEquals(customer.getLoans().size(), 0);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testSetLoans() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			Loan l = new Loan();
+			ArrayList<Loan> loanList = new ArrayList<Loan>();
+			loanList.add(l);
+			
+			assertEquals(customer.getLoans().size(), 0);
+			
+			customer.setLoans(loanList);;
+			
+			assertEquals(customer.getLoans().size(), 1);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testGetInitiateLoan() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.getInitiateLoan(), false);
+
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testSetInitiateLoan() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.getInitiateLoan(), false);
+			
+			customer.setInitiateLoan(true);
+			
+			assertEquals(customer.getInitiateLoan(), true);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testGetPaymentLoan() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.getInitiateLoan(), false);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testSetPaymentLoan() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.getPaymentLoan(), false);
+			
+			customer.setPaymentLoan(true);
+			
+			assertEquals(customer.getPaymentLoan(), true);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testGetDepositSavings() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.getDepositSavings(), false);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testSetDepositSavings() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.getDepositSavings(), false);
+			
+			customer.setDepositSavings(true);
+			
+			assertEquals(customer.getDepositSavings(), true);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testGetWithdrawSavings() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.getWithdrawSavings(), false);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testSetWithdrawSavings() {
-		fail("Not yet implemented");
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.getWithdrawSavings(), false);
+			
+			customer.setWithdrawSavings(true);
+			
+			assertEquals(customer.getWithdrawSavings(), true);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testCorrectPassword() {
-		fail("Not yet implemented");
-	}
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.correctPassword("correct"), false);
 
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	@Test
-	public void testAddLoan() {
-		fail("Not yet implemented");
+	public void testCorrectPassword2() {
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.correctPassword("awesomePassword"), true);
+
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

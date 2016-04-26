@@ -1,9 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
-Built-By: Bojan
-=======
 Built-By: Remus
->>>>>>> refs/remotes/origin/master
 Build-Jdk: 1.8.0_77
 Created-By: Maven Integration for Eclipse
 
