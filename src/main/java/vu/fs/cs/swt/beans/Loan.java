@@ -37,13 +37,7 @@ public class Loan implements Serializable {
 		this.setInterestRate(interestRate);
 		this.setIsDelinquent(false);
 		this.setCustomer(customer);
-		
-		if((this.getInterestRate() + 0.01*this.getBalance()) > 10.0) {
-			this._minimumPayment = this.getInterestRate() + 0.01*this.getBalance();
-		}
-		else {
-			this._minimumPayment = 10.0;
-		}
+		this.setMinimumPayment();
 	}
 	
 	public long getId() {
@@ -77,8 +71,8 @@ public class Loan implements Serializable {
 		return _minimumPayment;
 	}
 	public void setMinimumPayment() {
-		if((this.getInterestRate() + 0.01*this.getBalance()) > 10.0) {
-			this._minimumPayment = this.getInterestRate() + 0.01*this.getBalance();
+		if((this.interestAmount() + 0.01*this._customer.getSavingsAccount().getBalance()) > 10.0) {
+			this._minimumPayment = this.interestAmount() + 0.01*this._customer.getSavingsAccount().getBalance();
 		}
 		else {
 			this._minimumPayment = 10.0;
@@ -95,5 +89,27 @@ public class Loan implements Serializable {
 	}
 	public void setCustomer(Customer _customer) {
 		this._customer = _customer;
+	}
+	
+	public Double interestAmount() {
+		Double interest_amount = (this.getBalance() * this.getInterestRate()/100)/12;
+		return interest_amount;
+	}
+	public void increaseBalance(Double balance) throws Exception {
+		//it makes no sense to increase a balance with a negative number
+		if(balance < 0) {
+			throw new Exception("The balance cannot be negative");
+		}
+		this._balance += balance;
+	}
+	public void reduceBalance(Double balance) throws Exception {
+		//subtracting with a negative number will result in +, so again ambiguous in regards to the method name
+		if(balance < 0) {
+			throw new Exception("The balance cannot be negative");
+		}
+		if((this._balance - balance) < 0) {
+			throw new Exception("The balance cannot be negative");
+		}
+		this._balance -= balance;
 	}
 }

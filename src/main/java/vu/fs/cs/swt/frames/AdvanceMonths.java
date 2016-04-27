@@ -19,7 +19,9 @@ import vu.fs.cs.swt.systemclasses.System;
 import javax.swing.JLabel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
@@ -47,6 +49,7 @@ public class AdvanceMonths {
 	/**
 	 * @wbp.parser.constructor
 	 */
+	
 	public AdvanceMonths(Customer c) {
 		_c = c;
 		//advance();
@@ -57,7 +60,7 @@ public class AdvanceMonths {
 		JOptionPane.showMessageDialog(frameAdvance, "No customer attached!");
 	}
 	
-	public String advance(){
+	public String advance() throws Exception{
 		
 		date.add(Calendar.MONTH, 1);
 
@@ -75,9 +78,10 @@ public class AdvanceMonths {
 	}
 	
 	/**
+	 * @throws Exception  
 	 * @wbp.parser.entryPoint
 	 */
-	public void CalculateInterests(){
+	public void CalculateInterests() throws Exception {
 
 		frameAdvance = new JFrame("Account overview");
 	    //frameAdvance.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

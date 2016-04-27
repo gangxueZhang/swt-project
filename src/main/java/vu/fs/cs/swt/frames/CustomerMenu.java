@@ -307,8 +307,14 @@ public class CustomerMenu {
 		btnAdvanceToNext.setBackground(new Color(237, 62, 103));
 		btnAdvanceToNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String next = months.advance();
-				lblCurrentMonth.setText(next);
+				String next;
+				try {
+					next = months.advance();
+					lblCurrentMonth.setText(next);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 	}

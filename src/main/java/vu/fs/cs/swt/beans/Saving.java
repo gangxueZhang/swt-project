@@ -26,16 +26,17 @@ public class Saving implements Serializable {
 	
 	public Saving() {}
 	
-	public Saving(Customer customer) {
+	public Saving(Customer customer) throws Exception {
 		this.setBalance(0.0);
 		_interestRate = 0.0;
 		this.setCustomer(customer);
 	}
 	
-	public Saving(Double balance, Customer customer) throws Exception{
+	public Saving(Double balance, Customer customer) throws Exception {
 		this.setBalance(balance);
 		this.setInterestRate();
 		this.setCustomer(customer);
+		this._customer.setBeginningBalance(balance);
 	}
 	
 	public long getId() {
@@ -47,7 +48,10 @@ public class Saving implements Serializable {
 	public Double getBalance() {
 		return _balance;
 	}
-	public void setBalance(Double _balance) {
+	public void setBalance(Double _balance) throws Exception {
+		if(_balance < 0) {
+			throw new Exception("The balance cannot be negative");
+		}
 		this._balance = _balance;
 	}
 	public Double getInterestRate() {
@@ -74,5 +78,24 @@ public class Saving implements Serializable {
 	}
 	public void setCustomer(Customer _customer) {
 		this._customer = _customer;
+	}
+	
+	
+	public void increaseBalance(Double balance) throws Exception {
+		//it makes no sense to increase a balance with a negative number
+		if(balance < 0) {
+			throw new Exception("The balance cannot be negative");
+		}
+		this._balance += balance;
+	}
+	public void reduceBalance(Double balance) throws Exception {
+		//subtracting with a negative number will result in +, so again ambiguous in regards to the method name
+		if(balance < 0) {
+			throw new Exception("The balance cannot be negative");
+		}
+		if((this._balance - balance) < 0) {
+			throw new Exception("The balance cannot be negative");
+		}
+		this._balance -= balance;
 	}
 }

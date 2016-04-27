@@ -114,13 +114,19 @@ public class Customer implements Serializable {
 	public Double getBeginningBalance() {
 		return _beginningBalance;
 	}
-	public void setBeginningBalance(Double _beginningBalance) {
+	public void setBeginningBalance(Double _beginningBalance) throws Exception {
+		if(_beginningBalance < 0) {
+			throw new Exception("The balance cannot be negative");
+		}
 		this._beginningBalance = _beginningBalance;
 	}
 	public Double getEndBalance() {
 		return _endBalance;
 	}
-	public void setEndBalance(Double _endBalance) {
+	public void setEndBalance(Double _endBalance) throws Exception {
+		if(_endBalance < 0) {
+			throw new Exception("The balance cannot be negative");
+		}
 		this._endBalance = _endBalance;
 	}
 	public Saving getSavingsAccount() {
@@ -174,8 +180,17 @@ public class Customer implements Serializable {
 	}
 	public void addLoan(Loan loan) throws Exception {
 		if(this._loans.size() >= 3) {
-			throw new Exception("This customer already has three loans.");
+			throw new Exception("This customer already has three loans");
 		}
 		this._loans.add(loan);
+	}
+	public void removeLoan(Loan loan) throws Exception {
+		if(this._loans.size() == 0) {
+			throw new Exception("This customer has no loans");
+		}
+		if(loan.getBalance() != 0) {
+			throw new Exception("This customer has not paid its debt yet");
+		}
+		this._loans.remove(loan);
 	}
 }
