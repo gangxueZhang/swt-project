@@ -321,11 +321,6 @@ public class LoansTest {
 	}
 
 	@Test
-	public void testSetMinimumPayment() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testGetIsDelinquent() {
 		fail("Not yet implemented");
 	}
@@ -373,6 +368,23 @@ public class LoansTest {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	@Test
+	public void testSetMinimumPayment(){
+		Loan l = new Loan();
+		
+		try {
+			
+			assertNull(l.getBalance());
+			
+			l.setBalance(600.00);
+			
+			assertNotNull(l.getBalance());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

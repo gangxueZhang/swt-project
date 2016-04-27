@@ -267,6 +267,22 @@ public class CustomerTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void testSetBeginningBalanceNegative() {
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.getBeginningBalance(), 0.00, 0.0);
+			
+			customer.setBeginningBalance(-30.00);
+			
+			Assert.fail();
+			
+		} catch (Exception e) {
+
+		}
+	}
 
 	@Test
 	public void testGetEndBalance() {
@@ -295,6 +311,22 @@ public class CustomerTest {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testSetEndBalanceNegative() {
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			assertEquals(customer.getEndBalance(), 0.00, 0.0);
+			
+			customer.setEndBalance(-30.00);
+			
+			Assert.fail();
+			
+		} catch (Exception e) {
+
 		}
 	}
 
@@ -491,6 +523,57 @@ public class CustomerTest {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testRemoveLoan(){
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			customer.removeLoan(new Loan());
+			Assert.fail();
+		} catch (Exception e) {
+			
+		}
+	}
+	
+	@Test
+	public void testRemoveLoan2(){
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			Loan l = new Loan();
+			l.setBalance(15.0);
+			
+			customer.addLoan(l);
+			
+			assertEquals(customer.getLoans().size(), 1);
+			
+			customer.removeLoan(l);
+			
+			Assert.fail();
+		} catch (Exception e) {
+			
+		}
+	}
+	
+	@Test
+	public void testRemoveLoan3(){
+		try {
+			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
+			
+			Loan l = new Loan();
+			l.setBalance(0.0);
+			
+			customer.addLoan(l);
+			
+			assertEquals(customer.getLoans().size(), 1);
+			
+			customer.removeLoan(l);
+			
+			assertEquals(customer.getLoans().size(), 0);
+		} catch (Exception e) {
+			
 		}
 	}
 

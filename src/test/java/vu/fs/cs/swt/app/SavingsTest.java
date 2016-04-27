@@ -2,6 +2,7 @@ package vu.fs.cs.swt.app;
 
 import static org.junit.Assert.*;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import vu.fs.cs.swt.beans.Customer;
@@ -87,8 +88,14 @@ public class SavingsTest {
 	public void testGetBalance() {
 		
 		Saving s = new Saving();
-		s.setBalance(30.00);
-		assertNotNull(s.getBalance());
+		try {
+			s.setBalance(30.00);
+			assertNotNull(s.getBalance());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 	}
 
@@ -96,8 +103,25 @@ public class SavingsTest {
 	public void testSetBalance() {
 		Saving s = new Saving();
 		assertNull(s.getBalance());
-		s.setBalance(30.00);
-		assertEquals(s.getBalance(), 30.00, 0.0);
+		try {
+			s.setBalance(30.00);
+			assertEquals(s.getBalance(), 30.00, 0.0);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@Test
+	public void testSetNegativeBalance(){
+		Saving s = new Saving();
+		try {
+			s.setBalance(-15.00);
+			Assert.fail();
+		} catch (Exception e){
+			
+		}
 	}
 
 	@Test
@@ -166,6 +190,102 @@ public class SavingsTest {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	@Test
+	public void setIncreaseBalanceWithNegativeNumber() {
+		Saving s = new Saving();
+		
+		try{
+			s.increaseBalance(-22.00);
+			Assert.fail();
+		}catch (Exception e){
+			
+		}
+	}
+	
+	@Test
+	public void testIncreaseBalance(){
+		Saving s = new Saving();
+		
+		try{
+			s.setBalance(25.00);
+			assertEquals(s.getBalance(), 25.00, 0.0);
+			s.increaseBalance(22.00);
+			assertEquals(s.getBalance(), 47.00, 0.0);
+		}catch (Exception e){
+			
+		}
+	}
+	
+	@Test
+	public void testIncreaseBalance2(){
+		Saving s = new Saving();
+		
+		try{
+			s.setBalance(25.0);
+			assertEquals(s.getBalance(), 25.0, 0.0);
+			s.increaseBalance(22.1);
+			assertEquals(s.getBalance(), 47.1, 0.0);
+		}catch (Exception e){
+			
+		}
+	}
+	
+	@Test
+	public void testReduceBalanceWithNegativeNumber(){
+		Saving s = new Saving();
+		
+		try{
+			s.setBalance(25.00);
+			assertEquals(s.getBalance(), 25.00, 0.0);
+			s.reduceBalance(-22.00);
+			Assert.fail();
+		}catch (Exception e){
+			
+		}
+	}
+	
+	@Test
+	public void testReduceBalanceToMinus(){
+		Saving s = new Saving();
+		
+		try{
+			s.setBalance(25.00);
+			assertEquals(s.getBalance(), 25.00, 0.0);
+			s.reduceBalance(28.00);
+			Assert.fail();
+		}catch (Exception e){
+			
+		}
+	}
+	
+	@Test
+	public void testReduceBalanceAt0(){
+		Saving s = new Saving();
+		
+		try{
+			s.setBalance(25.00);
+			assertEquals(s.getBalance(), 25.00, 0.0);
+			s.reduceBalance(25.00);
+			assertEquals(s.getBalance(), 0.00, 0.0);
+		}catch (Exception e){
+			
+		}
+	}
+	
+	@Test
+	public void testReduceBalance(){
+		Saving s = new Saving();
+		
+		try{
+			s.setBalance(25.00);
+			assertEquals(s.getBalance(), 25.00, 0.0);
+			s.reduceBalance(24.00);
+			assertEquals(s.getBalance(), 1.00, 0.0);
+		}catch (Exception e){
+			
+		}
 	}
 
 }
