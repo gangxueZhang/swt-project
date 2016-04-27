@@ -118,9 +118,9 @@ public class SavingsTest {
 		Saving s = new Saving();
 		try {
 			s.setBalance(-15.00);
-			Assert.fail();
-		} catch (Exception e){
-			
+			fail("expected exception");
+		} catch (Exception e) {
+			assertEquals(e.getClass(), Exception.class);
 		}
 	}
 
@@ -198,9 +198,9 @@ public class SavingsTest {
 		
 		try{
 			s.increaseBalance(-22.00);
-			Assert.fail();
-		}catch (Exception e){
-			
+			fail("expected exception");
+		} catch (Exception e) {
+			assertEquals(e.getClass(), Exception.class);
 		}
 	}
 	
@@ -240,9 +240,9 @@ public class SavingsTest {
 			s.setBalance(25.00);
 			assertEquals(s.getBalance(), 25.00, 0.0);
 			s.reduceBalance(-22.00);
-			Assert.fail();
-		}catch (Exception e){
-			
+			fail("expected exception");
+		} catch (Exception e) {
+			assertEquals(e.getClass(), Exception.class);
 		}
 	}
 	
@@ -254,9 +254,9 @@ public class SavingsTest {
 			s.setBalance(25.00);
 			assertEquals(s.getBalance(), 25.00, 0.0);
 			s.reduceBalance(28.00);
-			Assert.fail();
-		}catch (Exception e){
-			
+			fail("expected exception");
+		} catch (Exception e) {
+			assertEquals(e.getClass(), Exception.class);
 		}
 	}
 	

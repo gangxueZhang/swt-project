@@ -37,6 +37,7 @@ public class Loan implements Serializable {
 		this.setInterestRate(interestRate);
 		this.setIsDelinquent(false);
 		this.setCustomer(customer);
+		this.interestAmount();
 		this.setMinimumPayment();
 	}
 	
@@ -71,7 +72,8 @@ public class Loan implements Serializable {
 		return _minimumPayment;
 	}
 	public void setMinimumPayment() {
-		if((this.interestAmount() + 0.01*this._customer.getSavingsAccount().getBalance()) > 10.0) {
+		if((this.interestAmount() + 
+				0.01*this._customer.getSavingsAccount().getBalance()) > 10.0) {
 			this._minimumPayment = this.interestAmount() + 0.01*this._customer.getSavingsAccount().getBalance();
 		}
 		else {

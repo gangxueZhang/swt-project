@@ -277,10 +277,9 @@ public class CustomerTest {
 			
 			customer.setBeginningBalance(-30.00);
 			
-			Assert.fail();
-			
+			fail("expected exception");
 		} catch (Exception e) {
-
+			assertEquals(e.getClass(), Exception.class);
 		}
 	}
 
@@ -323,10 +322,9 @@ public class CustomerTest {
 			
 			customer.setEndBalance(-30.00);
 			
-			Assert.fail();
-			
+			fail("expected exception");
 		} catch (Exception e) {
-
+			assertEquals(e.getClass(), Exception.class);
 		}
 	}
 
@@ -531,9 +529,9 @@ public class CustomerTest {
 		try {
 			customer = new Customer("John", "Doe", "johnny", "awesomePassword");
 			customer.removeLoan(new Loan());
-			Assert.fail();
+			fail("expected exception");
 		} catch (Exception e) {
-			
+			assertEquals(e.getClass(), Exception.class);
 		}
 	}
 	
@@ -551,9 +549,9 @@ public class CustomerTest {
 			
 			customer.removeLoan(l);
 			
-			Assert.fail();
+			fail("expected exception");
 		} catch (Exception e) {
-			
+			assertEquals(e.getClass(), Exception.class);
 		}
 	}
 	

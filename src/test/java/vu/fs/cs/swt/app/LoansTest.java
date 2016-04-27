@@ -7,6 +7,7 @@ import org.junit.Test;
 import junit.framework.Assert;
 import vu.fs.cs.swt.beans.Customer;
 import vu.fs.cs.swt.beans.Loan;
+import vu.fs.cs.swt.beans.Saving;
 
 public class LoansTest {
 	
@@ -67,10 +68,9 @@ public class LoansTest {
 		
 		try {
 			l.setInterestRate(18.25);
-			Assert.fail();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			
+			fail("expected exception");
+		}catch (Exception e){
+			assertEquals(e.getClass(), Exception.class);
 		}
 	}
 	
@@ -80,9 +80,9 @@ public class LoansTest {
 		
 		try {
 			l.setInterestRate(5.75);
-			Assert.fail();
-		} catch (Exception e) {
-
+			fail("expected exception");
+		}catch (Exception e){
+			assertEquals(e.getClass(), Exception.class);
 		}
 	}
 	
@@ -92,9 +92,9 @@ public class LoansTest {
 		
 		try {
 			l.setInterestRate(6.30);
-			Assert.fail();
-		} catch (Exception e) {
-
+			fail("expected exception");
+		}catch (Exception e){
+			assertEquals(e.getClass(), Exception.class);
 		}
 		
 	}
@@ -141,10 +141,9 @@ public class LoansTest {
 		try {
 			l.setBalance(490.00);
 			
-			Assert.fail();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			
+			fail("expected exception");
+		}catch (Exception e){
+			assertEquals(e.getClass(), Exception.class);
 		}
 		
 	}
@@ -157,10 +156,9 @@ public class LoansTest {
 		try {
 			l.setBalance(499.00);
 			
-			Assert.fail();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			
+			fail("expected exception");
+		}catch (Exception e){
+			assertEquals(e.getClass(), Exception.class);
 		}
 		
 	}
@@ -173,10 +171,9 @@ public class LoansTest {
 		try {
 			l.setBalance(499.99);
 			
-			Assert.fail();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			
+			fail("expected exception");
+		}catch (Exception e){
+			assertEquals(e.getClass(), Exception.class);
 		}
 		
 	}
@@ -188,9 +185,9 @@ public class LoansTest {
 		try {
 			l.setBalance(60000.00);
 			
-			Assert.fail();
-		} catch (Exception e) {
-
+			fail("expected exception");
+		}catch (Exception e){
+			assertEquals(e.getClass(), Exception.class);
 		}
 	}
 	
@@ -201,9 +198,9 @@ public class LoansTest {
 		try {
 			l.setBalance(50001.00);
 			
-			Assert.fail();
+			fail("expected exception");
 		} catch (Exception e) {
-
+			assertEquals(e.getClass(), Exception.class);
 		}
 	}
 	
@@ -214,9 +211,9 @@ public class LoansTest {
 		try {
 			l.setBalance(50000.01);
 			
-			Assert.fail();
+			fail("expected exception");
 		} catch (Exception e) {
-
+			assertEquals(e.getClass(), Exception.class);
 		}
 	}
 	
@@ -260,7 +257,9 @@ public class LoansTest {
 	@Test
 	public void testLoan() {
 		try {
-			Loan l = new Loan(600.00, 10.25, new Customer());
+			Customer c = new Customer("John", "Doe", "johnny", "awesomePassword");
+			c.getSavingsAccount().setBalance(35.0);
+			Loan l = new Loan(600.00, 10.25, c);
 			
 			assertEquals(l.getBalance(), 600.00, 0.0);
 			assertEquals(l.getInterestRate(), 10.25, 0.0);
@@ -384,6 +383,117 @@ public class LoansTest {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testInterestAmount(){
+		Loan l = new Loan();
+		try {
+			l.setInterestRate(8.0);
+			l.setBalance(2000.0);
+			
+			assertEquals(l.interestAmount(),13.3, 0.5 );
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void setIncreaseBalanceWithNegativeNumber() {
+		Saving s = new Saving();
+		
+		try{
+			s.increaseBalance(-22.00);
+			fail("expected exception");
+		} catch (Exception e) {
+			assertEquals(e.getClass(), Exception.class);
+		}
+	}
+	
+	@Test
+	public void testIncreaseBalance(){
+		Loan s = new Loan();
+		
+		try{
+			s.setBalance(2500.00);
+			assertEquals(s.getBalance(), 2500.00, 0.0);
+			s.increaseBalance(22.00);
+			assertEquals(s.getBalance(), 2522.00, 0.0);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testIncreaseBalance2(){
+		Loan s = new Loan();
+		
+		try{
+			s.setBalance(2500.0);
+			assertEquals(s.getBalance(), 2500.0, 0.0);
+			s.increaseBalance(22.1);
+			assertEquals(s.getBalance(), 2522.1, 0.0);
+		}catch (Exception e){
+			
+		}
+	}
+	
+	@Test
+	public void testReduceBalanceWithNegativeNumber(){
+		Loan s = new Loan();
+		
+		try{
+			s.setBalance(2500.00);
+			assertEquals(s.getBalance(), 2500.00, 0.0);
+			s.reduceBalance(-2500.00);
+			fail("expected exception");
+		}catch (Exception e){
+			assertEquals(e.getClass(), Exception.class);
+		}
+	}
+	
+	@Test
+	public void testReduceBalanceToMinus(){
+		Loan s = new Loan();
+		
+		try{
+			s.setBalance(2500.00);
+			assertEquals(s.getBalance(), 2500.00, 0.0);
+			s.reduceBalance(2800.00);
+			fail("expected exception");
+		}catch (Exception e){
+			assertEquals(e.getClass(), Exception.class);
+		}
+	}
+	
+	@Test
+	public void testReduceBalanceAt0(){
+		Loan s = new Loan();
+		
+		try{
+			s.setBalance(2500.00);
+			assertEquals(s.getBalance(), 2500.00, 0.0);
+			s.reduceBalance(2500.00);
+			assertEquals(s.getBalance(), 0.00, 0.0);
+		}catch (Exception e){
+			
+		}
+	}
+	
+	@Test
+	public void testReduceBalance(){
+		Loan s = new Loan();
+		
+		try{
+			s.setBalance(2500.00);
+			assertEquals(s.getBalance(), 2500.00, 0.0);
+			s.reduceBalance(2400.00);
+			assertEquals(s.getBalance(), 100.00, 0.0);
+		}catch (Exception e){
+			
 		}
 	}
 
