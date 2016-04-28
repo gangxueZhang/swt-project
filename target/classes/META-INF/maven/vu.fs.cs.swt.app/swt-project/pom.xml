@@ -34,7 +34,7 @@
   			<configuration>
 				<archive>
 					<manifest>
-						<mainClass>vu.fs.cs.swt.app.App</mainClass>
+						<mainClass>vu.fs.cs.swt.frames.Login</mainClass>
 					</manifest>
 				</archive>
 				<descriptorRefs>

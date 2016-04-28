@@ -10,14 +10,6 @@ import vu.fs.cs.swt.systemclasses.System;
 public class App 
 {	
 	public static void main(String[] args) {
-		java.lang.System.out.println("SWT PROject");
-		Customer c;
-		try {
-			c = new Customer("John", "Doe", "testuser", "testpass");
-			System.Customers.add(c);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 }
