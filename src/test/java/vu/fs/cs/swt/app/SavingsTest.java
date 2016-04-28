@@ -158,8 +158,7 @@ public class SavingsTest {
 			Customer customer = new Customer("John", "Doe", "johnny", "awesomePassword");
 			String accountNumber = customer.getAccountNumber();
 			
-			Saving s = new Saving();
-			s.setCustomer(customer);
+			Saving s = new Saving(customer);
 			
 			assertEquals(s.getCustomer().getAccountNumber(), accountNumber);
 			
@@ -169,26 +168,6 @@ public class SavingsTest {
 			e.printStackTrace();
 		}
 		
-		
-	}
-
-	@Test
-	public void testSetCustomer() {
-		
-		try {
-			Customer customer = new Customer("John", "Doe", "johnny", "awesomePassword");
-			
-			Saving s = new Saving();
-			
-			assertNull(s.getCustomer());
-			
-			s.setCustomer(customer);
-			
-			assertNotNull(s.getCustomer());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 	}
 	

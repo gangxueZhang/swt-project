@@ -29,13 +29,13 @@ public class Saving implements Serializable {
 	public Saving(Customer customer) throws Exception {
 		this.setBalance(0.0);
 		_interestRate = 0.0;
-		this.setCustomer(customer);
+		_customer = customer;
 	}
 	
 	public Saving(Double balance, Customer customer) throws Exception {
 		this.setBalance(balance);
 		this.setInterestRate();
-		this.setCustomer(customer);
+		_customer = customer;
 		this._customer.setBeginningBalance(balance);
 	}
 	
@@ -75,9 +75,6 @@ public class Saving implements Serializable {
 	}
 	public Customer getCustomer() {
 		return _customer;
-	}
-	public void setCustomer(Customer _customer) {
-		this._customer = _customer;
 	}
 	
 	

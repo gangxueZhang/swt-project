@@ -335,8 +335,7 @@ public class LoansTest {
 			Customer customer = new Customer("John", "Doe", "johnny", "awesomePassword");
 			String accountNumber = customer.getAccountNumber();
 			
-			Loan l = new Loan();
-			l.setCustomer(customer);
+			Loan l = new Loan(600.00, 10.25, customer);
 			
 			assertEquals(l.getCustomer().getAccountNumber(), accountNumber);
 			
@@ -346,26 +345,6 @@ public class LoansTest {
 			e.printStackTrace();
 		}
 		
-		
-	}
-
-	@Test
-	public void testSetCustomer() {
-		
-		try {
-			Customer customer = new Customer("John", "Doe", "johnny", "awesomePassword");
-			
-			Loan l = new Loan();
-			
-			assertNull(l.getCustomer());
-			
-			l.setCustomer(customer);
-			
-			assertNotNull(l.getCustomer());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 	}
 	

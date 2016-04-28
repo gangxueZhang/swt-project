@@ -36,9 +36,11 @@ public class Loan implements Serializable {
 		this.setBalance(balance);
 		this.setInterestRate(interestRate);
 		this.setIsDelinquent(false);
-		this.setCustomer(customer);
+		_customer = customer;
 		this.interestAmount();
 		this.setMinimumPayment();
+		
+		_customer.addLoan(this);
 	}
 	
 	public long getId() {
@@ -88,9 +90,6 @@ public class Loan implements Serializable {
 	}
 	public Customer getCustomer() {
 		return _customer;
-	}
-	public void setCustomer(Customer _customer) {
-		this._customer = _customer;
 	}
 	
 	public Double interestAmount() {

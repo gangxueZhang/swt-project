@@ -130,11 +130,11 @@ public class SystemTest {
 			Customer c = new Customer("John", "Doe", "johnny", "awesomePassword");
 			c.getSavingsAccount().setBalance(35.0);
 			Loan l = new Loan(600.00, 10.25, c);
+			//you no longer need to explicitly add a loan to a customer's list of loans,
+			//since this is now done in the constructor
 			
 			long ci = Customers.add(c);
-			
-			long i = Loans.add(l);
-			c.addLoan(l);
+			long i = l.getId();
 
 			Loan equal = Loans.find((int)i);
 
@@ -160,7 +160,7 @@ public class SystemTest {
 			
 			long ci = Customers.add(c);
 			
-			long i = Loans.add(l);
+			long i = l.getId();
 
 			Loan equal = Loans.find((int)i);
 			String acc = l.getCustomer().getAccountNumber();
@@ -176,7 +176,6 @@ public class SystemTest {
 			e.printStackTrace();
 		}
 	}
-//weird error
 	
 	@Test
 	public void testDeleteLoan(){
@@ -186,16 +185,20 @@ public class SystemTest {
 			Loan l = new Loan(600.00, 10.25, c);
 			
 			long ci = Customers.add(c);
+			long i = l.getId();
 			
-			long i = Loans.add(l);
+			//you no longer need to delete the loan itself, just remove it from the customer's list and update him
+			//these two lines can also be viewed as redundant, because when you delete the customer, his loans and
+			//savings will be automatically deleted with him, but just so we know how to delete a loan itself
+			//i've left these two lines, so don't remove them :)
+			c.removeLoan(l);
+			c = Customers.update(c);
 
 			Customers.delete((int)ci);			
 			
 			Loan equal = Loans.find((int)i);
 
 			assertNull(equal);
-			
-			
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -212,8 +215,6 @@ public class SystemTest {
 			Loan l = new Loan(600.00, 10.25, c);
 			
 			long ci = Customers.add(c);
-			
-			long i = Loans.add(l);
 
 			l.setIsDelinquent(true);
 			
@@ -242,8 +243,6 @@ public class SystemTest {
 			Loan l = new Loan(600.00, 10.25, c);
 			
 			long ci = Customers.add(c);
-			
-			long i = Loans.add(l);
 
 			List<Loan> loans = Loans.list();
 
@@ -373,7 +372,7 @@ public class SystemTest {
 
 			Customers.delete((int)ci);
 			
-			assertEquals(savings.size(), 2);
+			assertEquals(savings.size(), 1);
 			
 			
 		} catch (Exception e) {
