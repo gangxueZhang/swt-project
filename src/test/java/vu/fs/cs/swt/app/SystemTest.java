@@ -18,19 +18,7 @@ import vu.fs.cs.swt.systemclasses.System.Savings;
 import vu.fs.cs.swt.util.HibernateUtil;
 
 public class SystemTest {
-	private static Transaction t;
-	private static Session s;
 	
-	@Before
-	public void openSession() {
-		if(s!=null){
-			s.close();
-			s=null;
-		}
-		s=HibernateUtil.getSessionFactory().openSession();
-		t=s.beginTransaction();
-	}
-
 	@Test
 	public void testAddCustomer() {
 		
@@ -41,9 +29,9 @@ public class SystemTest {
 
 			Customer equal = Customers.find((int)i);
 			
-			assertEquals(c.getAccountNumber(), equal.getAccountNumber());
-			
 			Customers.delete((int)i);
+			
+			assertNotNull(equal);
 			
 			
 		} catch (Exception e) {
@@ -63,9 +51,9 @@ public class SystemTest {
 
 			Customer equal = Customers.find((int)i);
 			
-			assertEquals(c.getAccountNumber(), equal.getAccountNumber());
+			Customers.delete((int)i);	
 			
-			Customers.delete((int)i);
+			assertEquals(c.getAccountNumber(), equal.getAccountNumber());
 			
 			
 		} catch (Exception e) {
@@ -80,14 +68,10 @@ public class SystemTest {
 			Customer c = new Customer("John", "Doe", "johnny", "awesomePassword");
 			
 			long i = Customers.add(c);
-
-			Customer equal = Customers.find((int)i);
-			
-			assertEquals(c.getAccountNumber(), equal.getAccountNumber());
 			
 			Customers.delete((int)i);
 			
-			equal = Customers.find((int)i);
+			Customer equal = Customers.find((int)i);
 			
 			assertNull(equal);
 		} catch (Exception e) {
@@ -107,11 +91,13 @@ public class SystemTest {
 			c.setFirstName("Steve");
 			
 			Customer equal = Customers.update(c);
-			
-			assertEquals(c.getAccountNumber(), equal.getAccountNumber());
-			assertEquals(equal.getFirstName(),"Steve");
+			String acc = c.getAccountNumber();
 			
 			Customers.delete((int)i);
+			
+			assertEquals(acc, equal.getAccountNumber());
+			assertEquals(equal.getFirstName(),"Steve");
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -121,15 +107,15 @@ public class SystemTest {
 	@Test
 	public void testListCustomers(){
 		try {
-			Customer c = new Customer("John", "Doe", "johny", "awesomePassword");
+			Customer c = new Customer("John", "Doe", "johnny", "awesomePassword");
 			
 			long i = Customers.add(c);
 
 			List<Customer> equal = Customers.list();
 			
-			assertEquals(equal.size(), 1);
-			
 			Customers.delete((int)i);
+			
+			assertEquals(equal.size(), 1);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -148,14 +134,13 @@ public class SystemTest {
 			long ci = Customers.add(c);
 			
 			long i = Loans.add(l);
+			c.addLoan(l);
 
 			Loan equal = Loans.find((int)i);
-			
-			assertEquals(l.getCustomer().getAccountNumber(), equal.getCustomer().getAccountNumber());
-			
+
 			Customers.delete((int)ci);
-			//Loans.delete((int)i);
 			
+			assertNotNull(equal);	
 			
 			
 		} catch (Exception e) {
@@ -178,11 +163,11 @@ public class SystemTest {
 			long i = Loans.add(l);
 
 			Loan equal = Loans.find((int)i);
-			
-			assertEquals(l.getCustomer().getAccountNumber(), equal.getCustomer().getAccountNumber());
-			
+			String acc = l.getCustomer().getAccountNumber();
+
 			Customers.delete((int)ci);
-			//Loans.delete((int)i);
+			
+			assertEquals(acc, equal.getCustomer().getAccountNumber());	
 			
 			
 			
@@ -192,7 +177,7 @@ public class SystemTest {
 		}
 	}
 //weird error
-	/*
+	
 	@Test
 	public void testDeleteLoan(){
 		try {
@@ -204,14 +189,11 @@ public class SystemTest {
 			
 			long i = Loans.add(l);
 
+			Customers.delete((int)ci);			
+			
 			Loan equal = Loans.find((int)i);
-			
-			assertEquals(l.getCustomer().getAccountNumber(), equal.getCustomer().getAccountNumber());
-			
-			//Customers.delete((int)ci);
-			Loans.delete((int)i);
-			
-			assertNull(Loans.find((int)i));
+
+			assertNull(equal);
 			
 			
 			
@@ -220,7 +202,7 @@ public class SystemTest {
 			e.printStackTrace();
 		}
 	}
-	*/
+	
 	
 	@Test
 	public void updateLoan(){
@@ -236,12 +218,13 @@ public class SystemTest {
 			l.setIsDelinquent(true);
 			
 			Loan equal = Loans.update(l);
-			
-			assertEquals(l.getCustomer().getAccountNumber(), equal.getCustomer().getAccountNumber());
-			assertEquals(l.getIsDelinquent(), true);
-			
+			String acc = l.getCustomer().getAccountNumber();
+			Boolean del = l.getIsDelinquent();
+
 			Customers.delete((int)ci);
-			//Loans.delete((int)i);
+			
+			assertEquals(acc, equal.getCustomer().getAccountNumber());
+			assertEquals(del, true);	
 			
 			
 			
@@ -263,12 +246,10 @@ public class SystemTest {
 			long i = Loans.add(l);
 
 			List<Loan> loans = Loans.list();
-			
-			assertEquals(loans.size(), 1);
-			
+
 			Customers.delete((int)ci);
-			//Loans.delete((int)i);
 			
+			assertEquals(loans.size(), 1);				
 			
 			
 		} catch (Exception e) {
@@ -283,19 +264,16 @@ public class SystemTest {
 		try {
 			Customer c = new Customer("John", "Doe", "johnny", "awesomePassword");
 			c.getSavingsAccount().setBalance(35.0);
-			Saving s = new Saving(c);
 			
 			long ci = Customers.add(c);
 			
-			long i = Savings.add(s);
+			long i = c.getSavingsAccount().getId();
 
 			Saving equal = Savings.find((int)i);
 			
-			assertEquals(s.getCustomer().getAccountNumber(), equal.getCustomer().getAccountNumber());
-			
-			Savings.delete((int)i);
 			Customers.delete((int)ci);
 			
+			assertNotNull(equal);		
 			
 			
 		} catch (Exception e) {
@@ -311,19 +289,17 @@ public class SystemTest {
 		try {
 			Customer c = new Customer("John", "Doe", "johnny", "awesomePassword");
 			c.getSavingsAccount().setBalance(35.0);
-			Saving s = new Saving(c);
 			
 			long ci = Customers.add(c);
 			
-			long i = Savings.add(s);
+			long i = c.getSavingsAccount().getId();
 
 			Saving equal = Savings.find((int)i);
-			
-			assertEquals(s.getCustomer().getAccountNumber(), equal.getCustomer().getAccountNumber());
-			
-			Savings.delete((int)i);
+			String acc = c.getAccountNumber();
+
 			Customers.delete((int)ci);
 			
+			assertEquals(acc, equal.getCustomer().getAccountNumber());			
 			
 			
 		} catch (Exception e) {
@@ -337,21 +313,17 @@ public class SystemTest {
 		try {
 			Customer c = new Customer("John", "Doe", "johnny", "awesomePassword");
 			c.getSavingsAccount().setBalance(35.0);
-			Saving s = new Saving(c);
 			
 			long ci = Customers.add(c);
 			
-			long i = Savings.add(s);
-
-			Saving equal = Savings.find((int)i);
-			
-			assertEquals(s.getCustomer().getAccountNumber(), equal.getCustomer().getAccountNumber());
-			
-			Savings.delete((int)i);
-			
-			assertNull(Savings.find((int)i));
+			long i = c.getSavingsAccount().getId();
 			
 			Customers.delete((int)ci);
+			
+			Saving equal = Savings.find((int)i);
+			
+			assertNull(equal);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -364,22 +336,21 @@ public class SystemTest {
 		try {
 			Customer c = new Customer("John", "Doe", "johnny", "awesomePassword");
 			c.getSavingsAccount().setBalance(35.0);
-			Saving s = new Saving(c);
 			
 			long ci = Customers.add(c);
 			
-			long i = Savings.add(s);
+			long i = c.getSavingsAccount().getId();
 			
-			s.setInterestRate();
+			c.getSavingsAccount().setInterestRate();
 
-			Saving equal = Savings.update(s);
-			
-			assertEquals(s.getCustomer().getAccountNumber(), equal.getCustomer().getAccountNumber());
-			assertEquals(s.getInterestRate(), 1.5, 0.0);
-			
-			Savings.delete((int)i);
+			Saving equal = Savings.update(c.getSavingsAccount());
+			String acc = c.getAccountNumber();
+			Double interest = c.getSavingsAccount().getInterestRate();
+
 			Customers.delete((int)ci);
 			
+			assertEquals(acc, equal.getCustomer().getAccountNumber());
+			assertEquals(interest, 1.5, 0.0);			
 			
 			
 		} catch (Exception e) {
@@ -393,18 +364,16 @@ public class SystemTest {
 		try {
 			Customer c = new Customer("John", "Doe", "johnny", "awesomePassword");
 			c.getSavingsAccount().setBalance(35.0);
-			Saving s = new Saving(c);
 			
 			long ci = Customers.add(c);
 			
-			long i = Savings.add(s);
+			long i = c.getSavingsAccount().getId();
 
 			List<Saving> savings = Savings.list();
+
+			Customers.delete((int)ci);
 			
 			assertEquals(savings.size(), 2);
-			
-			Savings.delete((int)i);
-			Customers.delete((int)ci);
 			
 			
 		} catch (Exception e) {

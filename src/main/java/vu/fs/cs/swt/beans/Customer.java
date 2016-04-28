@@ -38,9 +38,9 @@ public class Customer implements Serializable {
 	@Column(name = "withdraw_savings", nullable=false)
 	private Boolean _withdrawSavings;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "_customer", fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "_customer", fetch = FetchType.EAGER, orphanRemoval = true)
 	private List<Loan> _loans;
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "_customer", fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "_customer", fetch = FetchType.EAGER, orphanRemoval = true)
 	private Saving _savingsAccount;
 	
 	public Customer() {}
@@ -187,9 +187,6 @@ public class Customer implements Serializable {
 	public void removeLoan(Loan loan) throws Exception {
 		if(this._loans.size() == 0) {
 			throw new Exception("This customer has no loans");
-		}
-		if(loan.getBalance() != 0) {
-			throw new Exception("This customer has not paid its debt yet");
 		}
 		this._loans.remove(loan);
 	}
