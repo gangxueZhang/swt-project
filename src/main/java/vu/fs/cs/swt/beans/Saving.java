@@ -27,16 +27,26 @@ public class Saving implements Serializable {
 	public Saving() {}
 	
 	public Saving(Customer customer) throws Exception {
-		this.setBalance(0.0);
-		_interestRate = 0.0;
-		_customer = customer;
+		if (customer.getSavingsAccount() == null){
+			this.setBalance(0.0);
+			_interestRate = 0.0;
+			_customer = customer;
+		} else{
+			throw new Exception("Customer already has a savings account");
+		}
 	}
 	
 	public Saving(Double balance, Customer customer) throws Exception {
-		this.setBalance(balance);
-		this.setInterestRate();
-		_customer = customer;
-		this._customer.setBeginningBalance(balance);
+		
+		if (customer.getSavingsAccount() == null){
+			this.setBalance(balance);
+			this.setInterestRate();
+			_customer = customer;
+			this._customer.setBeginningBalance(balance);
+		} else {
+			throw new Exception("Customer already has a savings account");
+		}
+		
 	}
 	
 	public long getId() {

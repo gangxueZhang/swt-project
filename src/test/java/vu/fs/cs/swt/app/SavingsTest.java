@@ -63,11 +63,10 @@ public class SavingsTest {
 			Customer c = new Customer("John", "Doe", "johnny", "awesomePassword");
 			Saving s = new Saving(c);
 			
-			assertEquals(s.getCustomer().getAccountNumber(), c.getAccountNumber());
+			fail("should have failed");
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assertEquals(e.getClass(), Exception.class);
 		}
 	}
 
@@ -76,11 +75,9 @@ public class SavingsTest {
 		try {
 			Customer customer = new Customer("John", "Doe", "johnny", "awesomePassword");
 			Saving s = new Saving(30.00, customer);
-			assertEquals(s.getBalance(), 30.0, 0.0);
-			assertEquals(s.getCustomer().getAccountNumber(), customer.getAccountNumber());
+			fail("should have failed");
 		} catch (Exception e) { 
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assertEquals(e.getClass(), Exception.class);
 		}
 	}
 
@@ -128,7 +125,7 @@ public class SavingsTest {
 	public void testGetInterestRate() {
 		try {
 			Customer customer = new Customer("John", "Doe", "johnny", "awesomePassword");
-			Saving s = new Saving(customer);
+			Saving s = customer.getSavingsAccount();
 			assertEquals(s.getInterestRate(), 0.0, 0.0);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -142,7 +139,7 @@ public class SavingsTest {
 	public void testSetInterestRate() {
 		try {
 			Customer customer = new Customer("John", "Doe", "johnny", "awesomePassword");
-			Saving s = new Saving(customer);
+			Saving s = customer.getSavingsAccount();
 			assertEquals(s.getInterestRate(), 0.0, 0.0);
 			s.setInterestRate();
 			assertEquals(s.getInterestRate(), 1.5, 0.0);
@@ -158,7 +155,7 @@ public class SavingsTest {
 			Customer customer = new Customer("John", "Doe", "johnny", "awesomePassword");
 			String accountNumber = customer.getAccountNumber();
 			
-			Saving s = new Saving(customer);
+			Saving s = customer.getSavingsAccount();
 			
 			assertEquals(s.getCustomer().getAccountNumber(), accountNumber);
 			

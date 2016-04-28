@@ -109,7 +109,8 @@ public class Loan implements Serializable {
 			throw new Exception("The balance cannot be negative");
 		}
 		if((this._balance - balance) < 0) {
-			throw new Exception("The balance cannot be negative");
+			//added this to make sure we cover req. 9
+			throw new Exception("You cannot pay more than the value of the loan");
 		}
 		this._balance -= balance;
 	}
