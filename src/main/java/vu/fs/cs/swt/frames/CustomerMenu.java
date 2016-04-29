@@ -285,6 +285,15 @@ public class CustomerMenu {
 		JButton btnMakePayment = new JButton("<html><p style='text-align: center;'>Make a payment <br/> to a Loan</p></html>");
 		btnMakePayment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(_c != null) {	
+					if(_c.getLoans().isEmpty()) {
+						JOptionPane.showMessageDialog(frame, "You first need to initiate a loan");
+						return;
+					}
+					frame.dispose();
+					PaymentLoan pl = new PaymentLoan(_c);
+					pl.main(null);
+				}
 			}
 		});
 		

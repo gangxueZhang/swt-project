@@ -105,6 +105,7 @@ public class WithdrawSavings {
 					}
 					try {
 						_c.getSavingsAccount().reduceBalance(Double.parseDouble(txtWithdrawAmount.getText()));
+						_c.setWithdrawSavings(true);
 						_c = Customers.update(_c);
 						JOptionPane.showMessageDialog(frame, "You have succesfully withdrawn from your account");
 						frame.dispose();

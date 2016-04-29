@@ -66,11 +66,11 @@ public class InitiateLoan {
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblInterestRate = new JLabel("Interest rate:");
-		lblInterestRate.setBounds(56, 69, 79, 25);
+		lblInterestRate.setBounds(88, 56, 128, 25);
 		frame.getContentPane().add(lblInterestRate);
 		
 		final JLabel cInterestRate = new JLabel();
-		cInterestRate.setBounds(158, 69, 200, 25);
+		cInterestRate.setBounds(226, 56, 128, 25);
 		if(_c != null) {
 			List<Loan> loans = _c.getLoans();
 			Double interest_rate = 6.0;
@@ -85,11 +85,11 @@ public class InitiateLoan {
 		frame.getContentPane().add(cInterestRate);
 		
 		JLabel lblSavingsRate = new JLabel("Savings rate:");
-		lblSavingsRate.setBounds(56, 105, 79, 25);
+		lblSavingsRate.setBounds(88, 92, 128, 25);
 		frame.getContentPane().add(lblSavingsRate);
 		
 		JLabel cSavingsRate = new JLabel("");
-		cSavingsRate.setBounds(158, 105, 200, 25);
+		cSavingsRate.setBounds(226, 92, 128, 25);
 		if(_c != null) {
 			List<Loan> loans = _c.getLoans();
 			Double interest_rate = 6.0;
@@ -105,11 +105,11 @@ public class InitiateLoan {
 		frame.getContentPane().add(cSavingsRate);
 		
 		JLabel lblAmount = new JLabel("Amount:");
-		lblAmount.setBounds(56, 151, 79, 25);
+		lblAmount.setBounds(88, 138, 128, 25);
 		frame.getContentPane().add(lblAmount);
 		
 		txtAmount = new JTextField();
-		txtAmount.setBounds(158, 151, 200, 25);
+		txtAmount.setBounds(226, 138, 128, 25);
 		frame.getContentPane().add(txtAmount);
 		txtAmount.setColumns(10);
 		
@@ -140,6 +140,7 @@ public class InitiateLoan {
 						Double saving_balance = _c.getSavingsAccount().getBalance();
 						_c.getSavingsAccount().setInterestRate();
 						_c.getSavingsAccount().setBalance(saving_balance + balance);
+						_c.setInitiateLoan(true);
 						System.Customers.update(_c);
 						JOptionPane.showMessageDialog(frame, "You have successfully applied for a loan!");
 						frame.dispose();
@@ -153,8 +154,26 @@ public class InitiateLoan {
 				}
 			}
 		});
-		btnInitiateLoan.setBounds(158, 199, 200, 23);
+		btnInitiateLoan.setBounds(88, 184, 128, 23);
 		frame.getContentPane().add(btnInitiateLoan);
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(_c != null) {		
+					frame.dispose();
+					CustomerMenu cm = new CustomerMenu(_c);
+					cm.main(null);
+				}
+				else {
+					frame.dispose();
+					CustomerMenu cm = new CustomerMenu();
+					cm.main(null);
+				}
+			}
+		});
+		btnBack.setBounds(226, 184, 128, 23);
+		frame.getContentPane().add(btnBack);
 	}
 
 }

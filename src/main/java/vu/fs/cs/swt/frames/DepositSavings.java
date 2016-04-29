@@ -99,6 +99,7 @@ public class DepositSavings {
 				if(_c != null) {
 					try {
 						_c.getSavingsAccount().increaseBalance(Double.parseDouble(txtDepositAmount.getText()));
+						_c.setDepositSavings(true);
 						_c = Customers.update(_c);
 						JOptionPane.showMessageDialog(frame, "You have succesfully deposited to your account");
 						frame.dispose();
