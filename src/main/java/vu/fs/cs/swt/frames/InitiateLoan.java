@@ -123,6 +123,7 @@ public class InitiateLoan {
 				Pattern pattern = Pattern.compile("[0-9]+(.[0-9]{1,2})?");
 				if(!pattern.matcher(txtAmount.getText()).matches()) {
 					JOptionPane.showMessageDialog(frame, "Only numbers are allowed: 500 or 500.0 or 500.00");
+					txtAmount.setText("");
 					return;
 			    }
 				if(Double.parseDouble(txtAmount.getText()) < 500.00 ||
@@ -137,10 +138,8 @@ public class InitiateLoan {
 					try {
 						l = new Loan(balance, interest_rate, _c);
 						Double saving_balance = _c.getSavingsAccount().getBalance();
-						_c.addLoan(l);
 						_c.getSavingsAccount().setInterestRate();
 						_c.getSavingsAccount().setBalance(saving_balance + balance);
-						System.Loans.add(l);
 						System.Customers.update(_c);
 						JOptionPane.showMessageDialog(frame, "You have successfully applied for a loan!");
 						frame.dispose();

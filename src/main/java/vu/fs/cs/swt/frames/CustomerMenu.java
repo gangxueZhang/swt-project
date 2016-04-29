@@ -268,7 +268,12 @@ public class CustomerMenu {
 		btnInitLoan.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnInitLoan.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(_c != null) {		
+				if(_c != null) {
+					if(_c.getLoans().size() >= 3) {
+						JOptionPane.showMessageDialog(frame, "You already have 3 loans");
+						return;
+						
+					}
 					frame.dispose();
 					InitiateLoan il = new InitiateLoan(_c);
 					il.main(null);
@@ -286,6 +291,15 @@ public class CustomerMenu {
 		JButton btnWithdrawSavings = new JButton("<html><p style='text-align: center;'>Withdraw from <br/> Savings</p></html>");
 		btnWithdrawSavings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(_c != null) {	
+					if(_c.getSavingsAccount().getBalance() == 0.0) {
+						JOptionPane.showMessageDialog(frame, "Your balance is 0. Please deposit money first");
+						return;
+					}
+					frame.dispose();
+					WithdrawSavings ws = new WithdrawSavings(_c);
+					ws.main(null);
+				}
 			}
 		});
 		
