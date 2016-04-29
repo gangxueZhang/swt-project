@@ -306,7 +306,11 @@ public class CustomerMenu {
 		JButton btnDepositToSavings = new JButton("<html><p style='text-align: center;'>Deposit to <br/> Savings</p></html>");
 		btnDepositToSavings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DepositSavings deposit = new DepositSavings(_c);
+				if(_c != null) {	
+					frame.dispose();
+					DepositSavings ds = new DepositSavings(_c);
+					ds.main(null);
+				}
 				
 			}
 		});
