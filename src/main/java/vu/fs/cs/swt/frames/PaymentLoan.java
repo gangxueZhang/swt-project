@@ -1,12 +1,13 @@
 package vu.fs.cs.swt.frames;
 
-import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import vu.fs.cs.swt.beans.*;
+import vu.fs.cs.swt.systemclasses.System.Customers;
 
 import javax.swing.*;
 
@@ -76,10 +77,12 @@ public class PaymentLoan {
 		frame.getContentPane().add(lblSelectLoan);
 		
 		model = new DefaultListModel<String>();		
-		int i=0;
+		int counter=0;
+		final Integer[] ids = new Integer[_c.getLoans().size()];
 		for(Loan l : _c.getLoans()) {
-			i++;
-			String s = "Loan " + i;
+			ids[counter] = (int)l.getId();
+			counter++;
+			String s = "Loan " + counter;
 			model.addElement(s);
 		}
 		
@@ -96,7 +99,7 @@ public class PaymentLoan {
 		loansPanel.setBounds(219, 43, 99, 88);
 		frame.getContentPane().add(loansPanel);
 		
-		JList<String> list = new JList<String>(model);
+		final JList<String> list = new JList<String>(model);
 		list.setBackground(Color.LIGHT_GRAY);
 		list.setVisibleRowCount(3);
 		list.setBounds(219, 43, 99, 88);
@@ -118,7 +121,44 @@ public class PaymentLoan {
 					return;
 			    }
 				if(_c != null) {
-					
+					for(int i = 0; i < 3; i++) {
+						if(list.isSelectedIndex(i)) {
+							for(Loan l : _c.getLoans()) {
+								if((int)l.getId() == ids[i]) {
+									if((Double.parseDouble(txtAmount.getText()) < l.getMinimumPayment())
+											&& (l.getBalance() > l.getMinimumPayment())) {
+										JOptionPane.showMessageDialog(frame, "You cannot pay less than your minimum payment");
+										txtAmount.setText("");
+										return;
+									}
+									if(Double.parseDouble(txtAmount.getText()) > l.getBalance()) {
+										JOptionPane.showMessageDialog(frame, "You cannot pay more than the current balance. "
+												+ "Your current balance is: " + l.getBalance());
+										txtAmount.setText("");
+										return;
+									}
+									try {
+										l.reduceBalance(Double.parseDouble(txtAmount.getText()));
+										if(l.getBalance() == 0) {
+											_c.removeLoan(l);
+										}
+										_c.setPaymentLoan(true);
+										_c = Customers.update(_c);
+										JOptionPane.showMessageDialog(frame, "You have successfully paid for your loan!");
+										frame.dispose();
+										CustomerMenu cm = new CustomerMenu(_c);
+										cm.main(null);
+									} catch (NumberFormatException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									} catch (Exception e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 		});
