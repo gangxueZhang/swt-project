@@ -125,12 +125,7 @@ public class PaymentLoan {
 						if(list.isSelectedIndex(i)) {
 							for(Loan l : _c.getLoans()) {
 								if((int)l.getId() == ids[i]) {
-									if((Double.parseDouble(txtAmount.getText()) < l.getMinimumPayment())
-											&& (l.getBalance() > l.getMinimumPayment())) {
-										JOptionPane.showMessageDialog(frame, "You cannot pay less than your minimum payment");
-										txtAmount.setText("");
-										return;
-									}
+									
 									if(Double.parseDouble(txtAmount.getText()) > l.getBalance()) {
 										JOptionPane.showMessageDialog(frame, "You cannot pay more than the current balance. "
 												+ "Your current balance is: " + l.getBalance());
@@ -142,9 +137,18 @@ public class PaymentLoan {
 										if(l.getBalance() == 0) {
 											_c.removeLoan(l);
 										}
+										
+										//set delinquent if the minimum payment is less 
+										if((Double.parseDouble(txtAmount.getText()) < l.getMinimumPayment())
+												&& (l.getBalance() > l.getMinimumPayment())) {
+											l.setIsDelinquent(true);
+										} else {
+											l.setIsDelinquent(false);
+										}
 										_c.setPaymentLoan(true);
 										_c = Customers.update(_c);
 										JOptionPane.showMessageDialog(frame, "You have successfully paid for your loan!");
+										
 										frame.dispose();
 										CustomerMenu cm = new CustomerMenu(_c);
 										cm.main(null);

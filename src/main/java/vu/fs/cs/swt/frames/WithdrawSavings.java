@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.awt.event.ActionEvent;
 import java.util.regex.Pattern;
 
@@ -21,6 +22,8 @@ public class WithdrawSavings {
 	private JFrame frame;
 	private static Customer _c;
 	private JTextField txtWithdrawAmount;
+	
+	DecimalFormat df = new DecimalFormat("#.##");
 
 	/**
 	 * Launch the application.
@@ -72,7 +75,7 @@ public class WithdrawSavings {
 		JLabel cCurrentBalance = new JLabel("");
 		cCurrentBalance.setBounds(197, 72, 105, 14);
 		if(_c != null) {
-			cCurrentBalance.setText(_c.getSavingsAccount().getBalance().toString());
+			cCurrentBalance.setText( df.format(_c.getSavingsAccount().getBalance()));
 		}
 		frame.getContentPane().add(cCurrentBalance);
 		

@@ -7,6 +7,7 @@ import vu.fs.cs.swt.beans.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
 import javax.swing.border.EtchedBorder;
@@ -70,6 +71,8 @@ public class CustomerMenu {
 		panel.setBounds(0, 0, 784, 40);
 		frame.getContentPane().add(panel);
 		
+		DecimalFormat df = new DecimalFormat("#.##");
+		
 		JLabel lblWecheatem = new JLabel("WeCheatEm");
 		panel.add(lblWecheatem);
 		lblWecheatem.setHorizontalAlignment(SwingConstants.CENTER);
@@ -101,7 +104,7 @@ public class CustomerMenu {
 		JLabel cSavingsBalance = new JLabel();
 		cSavingsBalance.setBounds(173, 63, 245, 14);
 		if(_c != null) {
-			cSavingsBalance.setText("\u20AC" + _c.getSavingsAccount().getBalance());
+			cSavingsBalance.setText("\u20AC" + df.format(_c.getSavingsAccount().getBalance()));
 		}
 		customerInformation.add(cSavingsBalance);
 		
@@ -110,9 +113,8 @@ public class CustomerMenu {
 		lblBasicInformation.setBounds(10, 10, 144, 17);
 		customerInformation.add(lblBasicInformation);
 		
-		final JLabel lblCurrentMonth = new JLabel("MONTH");
+		JLabel lblCurrentMonth = new JLabel(AdvanceMonths.result);
 		lblCurrentMonth.setFont(new Font("Tahoma", Font.BOLD, 14));
-		
 		lblCurrentMonth.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCurrentMonth.setOpaque(true);
 		lblCurrentMonth.setBackground(new Color(144, 238, 144));
@@ -132,6 +134,7 @@ public class CustomerMenu {
 		
 		if(_c != null) {
 			List<Loan> loans = _c.getLoans();
+			
 			if(!loans.isEmpty()) {				
 				JLabel lblLoan1 = new JLabel("1) Loan 1");
 				lblLoan1.setBounds(10, 43, 100, 23);
@@ -143,7 +146,8 @@ public class CustomerMenu {
 				
 				JLabel cLoan1Balance = new JLabel("");
 				cLoan1Balance.setBounds(94, 63, 71, 23);
-				cLoan1Balance.setText(loans.get(0).getBalance().toString());
+				
+		        cLoan1Balance.setText( (df.format(loans.get(0).getBalance())).toString());
 				loansPanel.add(cLoan1Balance);
 				
 				JLabel lblLoan1Interest = new JLabel("b) Interest:");
@@ -161,7 +165,7 @@ public class CustomerMenu {
 				
 				JLabel cLoan1MinPayment = new JLabel("");
 				cLoan1MinPayment.setBounds(318, 63, 71, 23);
-				cLoan1MinPayment.setText(loans.get(0).getMinimumPayment().toString());
+				cLoan1MinPayment.setText( df.format(loans.get(0).getMinimumPayment()) );
 				loansPanel.add(cLoan1MinPayment);
 				
 				JLabel lblLoan1Delinquent = new JLabel("d) Delinquent:");
@@ -184,7 +188,7 @@ public class CustomerMenu {
 					
 					JLabel cLoan2MinPayment = new JLabel("");
 					cLoan2MinPayment.setBounds(318, 140, 71, 23);
-					cLoan2MinPayment.setText(loans.get(1).getMinimumPayment().toString());
+					cLoan2MinPayment.setText( df.format(loans.get(1).getMinimumPayment()));
 					loansPanel.add(cLoan2MinPayment);
 					
 					JLabel cLoan2Delinquent = new JLabel("");
@@ -206,7 +210,7 @@ public class CustomerMenu {
 					
 					JLabel cLoan2Balance = new JLabel("");
 					cLoan2Balance.setBounds(94, 140, 71, 23);
-					cLoan2Balance.setText(loans.get(1).getBalance().toString());
+					cLoan2Balance.setText((df.format(loans.get(1).getBalance())).toString());
 					loansPanel.add(cLoan2Balance);
 					
 					JLabel cLoan2Interest = new JLabel("");
@@ -217,7 +221,7 @@ public class CustomerMenu {
 					if(loans.size() > 2) {
 						JLabel cLoan3Balance = new JLabel("");
 						cLoan3Balance.setBounds(94, 221, 71, 23);
-						cLoan3Balance.setText(loans.get(2).getBalance().toString());
+						cLoan3Balance.setText((df.format(loans.get(2).getBalance())).toString());
 						loansPanel.add(cLoan3Balance);
 						
 						JLabel cLoan3Interest = new JLabel("");
@@ -247,7 +251,7 @@ public class CustomerMenu {
 						
 						JLabel cLoan3MinPayment = new JLabel("");
 						cLoan3MinPayment.setBounds(318, 221, 71, 23);
-						cLoan3MinPayment.setText(loans.get(2).getMinimumPayment().toString());
+						cLoan3MinPayment.setText( df.format(loans.get(2).getMinimumPayment()));
 						loansPanel.add(cLoan3MinPayment);
 						
 						JLabel cLoan3Delinquent = new JLabel("");
@@ -277,6 +281,8 @@ public class CustomerMenu {
 					frame.dispose();
 					InitiateLoan il = new InitiateLoan(_c);
 					il.main(null);
+					
+					_c.setInitiateLoan(true);
 				}
 			}
 		});
@@ -293,6 +299,8 @@ public class CustomerMenu {
 					frame.dispose();
 					PaymentLoan pl = new PaymentLoan(_c);
 					pl.main(null);
+					
+					_c.setPaymentLoan(true);
 				}
 			}
 		});
@@ -300,6 +308,10 @@ public class CustomerMenu {
 		JButton btnWithdrawSavings = new JButton("<html><p style='text-align: center;'>Withdraw from <br/> Savings</p></html>");
 		btnWithdrawSavings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (_c.getWithdrawSavings() == true){
+					JOptionPane.showMessageDialog(frame, "You already did this action");
+					return;
+				}
 				if(_c != null) {	
 					if(_c.getSavingsAccount().getBalance() == 0.0) {
 						JOptionPane.showMessageDialog(frame, "Your balance is 0. Please deposit money first");
@@ -308,6 +320,8 @@ public class CustomerMenu {
 					frame.dispose();
 					WithdrawSavings ws = new WithdrawSavings(_c);
 					ws.main(null);
+					
+					_c.setWithdrawSavings(true);
 				}
 			}
 		});
@@ -315,10 +329,16 @@ public class CustomerMenu {
 		JButton btnDepositToSavings = new JButton("<html><p style='text-align: center;'>Deposit to <br/> Savings</p></html>");
 		btnDepositToSavings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (_c.getDepositSavings() == true){
+					JOptionPane.showMessageDialog(frame, "You already did this action");
+					return;
+				}
 				if(_c != null) {	
 					frame.dispose();
 					DepositSavings ds = new DepositSavings(_c);
 					ds.main(null);
+					
+					_c.setDepositSavings(true);
 				}
 				
 			}
@@ -334,10 +354,11 @@ public class CustomerMenu {
 		btnAdvanceToNext.setBackground(new Color(237, 62, 103));
 		btnAdvanceToNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String next;
 				try {
-					next = months.advance();
-					lblCurrentMonth.setText(next);
+					
+					frame.dispose();
+					months.advance();
+					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

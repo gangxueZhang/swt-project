@@ -3,6 +3,7 @@ package vu.fs.cs.swt.frames;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.regex.Pattern;
 
 import javax.swing.JButton;
@@ -20,6 +21,8 @@ public class DepositSavings {
 	private static Customer _c;
 	private JTextField txtDepositAmount;
 
+	
+	DecimalFormat df = new DecimalFormat("#.##");
 	/**
 	 * Launch the application.
 	 */
@@ -70,7 +73,7 @@ public class DepositSavings {
 		JLabel cCurrentBalance = new JLabel("");
 		cCurrentBalance.setBounds(197, 72, 105, 14);
 		if(_c != null) {
-			cCurrentBalance.setText(_c.getSavingsAccount().getBalance().toString());
+			cCurrentBalance.setText( df.format(_c.getSavingsAccount().getBalance()));
 		}
 		frame.getContentPane().add(cCurrentBalance);
 		

@@ -1,4 +1,4 @@
-package vu.fs.cs.swt.app;
+	package vu.fs.cs.swt.app;
 
 import static org.junit.Assert.*;
 
