@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 
 import vu.fs.cs.swt.beans.*;
 import vu.fs.cs.swt.systemclasses.System;
+import vu.fs.cs.swt.systemclasses.System.Customers;
 
 import javax.swing.JLabel;
 import javax.swing.border.BevelBorder;
@@ -102,19 +103,19 @@ public class AdvanceMonths {
 	    lblActionsTaken.setBounds(10, 11, 173, 14);
 	    panel.add(lblActionsTaken);
 	    
-	    JLabel lblInitiateALoan = new JLabel("");
+	    JLabel lblInitiateALoan = new JLabel("Initiate a Loan: False");
 	    lblInitiateALoan.setBounds(10, 36, 217, 14);
 	    panel.add(lblInitiateALoan);
 	    
-	    JLabel lblMakeAPayment = new JLabel("");
+	    JLabel lblMakeAPayment = new JLabel("Make a payment on a loan: False");
 	    lblMakeAPayment.setBounds(10, 61, 217, 14);
 	    panel.add(lblMakeAPayment);
 	    
-	    JLabel lblWithdrawSavings = new JLabel("");
+	    JLabel lblWithdrawSavings = new JLabel("Withdraw savings: False");
 	    lblWithdrawSavings.setBounds(10, 86, 173, 14);
 	    panel.add(lblWithdrawSavings);
 	    
-	    JLabel lblDepositToSavings = new JLabel("");
+	    JLabel lblDepositToSavings = new JLabel("Deposit to savings: False");
 	    lblDepositToSavings.setBounds(10, 111, 173, 14);
 	    panel.add(lblDepositToSavings);
 	    btnBack.addActionListener(new ActionListener() {
@@ -150,6 +151,7 @@ public class AdvanceMonths {
 				lblDepositToSavings.setText("Deposit to savings: True");
 				_c.setDepositSavings(false);
 			}
+			_c = Customers.update(_c);
 			
 			JLabel[] labels = new JLabel[loans.size()];
 			JLabel[] lblEndBalances = new JLabel[loans.size()];
@@ -195,7 +197,7 @@ public class AdvanceMonths {
 						//UPDATE
 						loans.get(i).increaseBalance(loans.get(i).interestAmount());
 					}
-					
+					_c = Customers.update(_c);
 				}
 
 				Double sCurrentBalance = _c.getSavingsAccount().getBalance();
@@ -214,6 +216,7 @@ public class AdvanceMonths {
 				
 				//UPDATE
 				_c.getSavingsAccount().setBalance(sEndBalance);
+				_c = Customers.update(_c);
 				
 			} else {
 				JOptionPane.showMessageDialog(frameAdvance, "You need to initiate a loan first!");

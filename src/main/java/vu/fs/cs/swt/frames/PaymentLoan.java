@@ -124,8 +124,7 @@ public class PaymentLoan {
 					for(int i = 0; i < 3; i++) {
 						if(list.isSelectedIndex(i)) {
 							for(Loan l : _c.getLoans()) {
-								if((int)l.getId() == ids[i]) {
-									
+								if((int)l.getId() == ids[i]) {									
 									if(Double.parseDouble(txtAmount.getText()) > l.getBalance()) {
 										JOptionPane.showMessageDialog(frame, "You cannot pay more than the current balance. "
 												+ "Your current balance is: " + l.getBalance());
